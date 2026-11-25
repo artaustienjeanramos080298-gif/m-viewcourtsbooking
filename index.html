@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M-VIEW COURTS pickle &amp; café | Court Booking (5AM – 2AM)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cinzel / Playfair Display (Logo Serif), Pacifico (Logo Script), Plus Jakarta Sans (Clean UI) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Pacifico&family=Playfair+Display:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Sports & UI Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serifLogo: ['Cinzel', 'Playfair Display', 'serif'],
+                        scriptLogo: ['Pacifico', 'cursive'],
+                    },
+                    colors: {
+                        mview: {
+                            canvas: '#F6F6F2',     // Primary Off-White Paper Canvas
+                            paper: '#FAF9F5',      // Soft Cream Surface
+                            moss: '#4D733B',       // Primary Brand Forest / Moss Green
+                            forest: '#375429',     // Secondary Deep Forest (Hover & Net Post)
+                            celadon: '#CED6BE',    // Tertiary Pale Sage / Celadon Service Court
+                            sageTint: '#E9EDE0',   // Soft Sage Tint
+                            sageSoft: '#E5ECE0',   // Warm Botanical Mist
+                            border: '#D6DEC9',     // Subtle Sage Border
+                            ink: '#24331C',        // Neutral Dark Charcoal-Olive Text
+                            muted: '#5E7054',      // Muted Moss-Gray Captions
+                            gold: '#D8A444',       // Warm Sunlit Gold Accent
+                            latte: '#E09F5A',      // Café Latte & Terracotta Accent
+                            creamWarm: '#FDFBF6',  // Sun-kissed Cream Card
+                        }
+                    },
+                    boxShadow: {
+                        botanical: '0 12px 32px -8px rgba(55, 84, 41, 0.12)',
+                        botanicalHover: '0 18px 36px -10px rgba(55, 84, 41, 0.20)',
+                        warmGlow: '0 10px 28px -6px rgba(216, 164, 68, 0.28)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom M-VIEW Courts logo paper texture & crisp court lines */
+        body {
+            background-color: #F6F6F2;
+            background-image: 
+                radial-gradient(rgba(77, 115, 59, 0.055) 1px, transparent 0),
+                radial-gradient(rgba(224, 159, 90, 0.04) 1px, transparent 0);
+            background-size: 22px 22px, 44px 44px;
+            background-position: 0 0, 11px 11px;
+            color: #24331C;
+            overflow-x: hidden;
+        }
+        .court-surface-card {
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.55) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.55) 1px, transparent 1px);
+            background-size: 36px 36px;
+        }
+        /* Full-Bleed Scenic Outdoor Court Hero Background */
+        /* Full-Bleed M-VIEW Logo Homepage Hero Background */
+        .hero-outdoor-court {
+            background-color: #FAF9F5;
+            background-image:
+                radial-gradient(circle at 50% 42%, rgba(77, 115, 59, 0.10), transparent 65%),
+                linear-gradient(180deg, rgba(250, 249, 245, 0.92) 0%, rgba(246, 246, 242, 0.88) 55%, rgba(28, 43, 20, 0.86) 100%);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .slot-card {
+            transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .slot-card:hover:not(:disabled) {
+            transform: translateY(-2px);
+        }
+        .slot-card:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        @keyframes pulseSubtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.65; }
+        }
+        .animate-pulse-subtle {
+            animation: pulseSubtle 2.2s infinite;
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+        }
+        .animate-float-slow {
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+        /* Pronounced Liquid Glass Top Header */
+        .liquid-glass-header {
+            background: linear-gradient(135deg, rgba(250, 249, 245, 0.72) 0%, rgba(233, 237, 224, 0.58) 50%, rgba(250, 249, 245, 0.68) 100%);
+            -webkit-backdrop-filter: blur(22px) saturate(185%);
+            backdrop-filter: blur(22px) saturate(185%);
+            border-bottom: 1.5px solid rgba(255, 255, 255, 0.65);
+            box-shadow:
+                0 10px 30px -10px rgba(36, 51, 28, 0.14),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.85),
+                inset 0 -1px 0 0 rgba(77, 115, 59, 0.18);
+            transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+        }
+        .liquid-glass-header.is-scrolled {
+            background: linear-gradient(135deg, rgba(250, 249, 245, 0.85) 0%, rgba(233, 237, 224, 0.75) 50%, rgba(250, 249, 245, 0.82) 100%);
+            -webkit-backdrop-filter: blur(26px) saturate(200%);
+            backdrop-filter: blur(26px) saturate(200%);
+            box-shadow:
+                0 14px 36px -8px rgba(36, 51, 28, 0.22),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
+                inset 0 -1px 0 0 rgba(77, 115, 59, 0.25);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col pb-32 md:pb-16">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+    <!-- Sticky Brand Navigation Header matching M-VIEW COURTS pickle & café Logo -->
+    <header id="main-sticky-header" class="sticky top-0 z-40 liquid-glass-header text-mview-ink">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 sm:py-4 relative z-10">
+            <div class="flex items-center justify-between gap-4">
+                <!-- Authentic M-VIEW COURTS pickle & café Logo Emblem + Wordmark -->
+                <a href="#home-hero" class="flex items-center gap-3.5 sm:gap-5 group">
+                    <!-- Custom SVG Emblem Recreating the Logo -->
+                    <div class="w-20 h-14 sm:w-28 sm:h-20 rounded-2xl bg-mview-creamWarm border-2 border-mview-border shadow-xs p-1.5 flex items-center justify-center shrink-0 group-hover:border-mview-moss group-hover:shadow-md transition">
+                        <svg viewBox="0 0 220 145" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="M-VIEW Courts Logo">
+                            <!-- Mount Matutum Twin-Peak Outline (#4D733B) -->
+                            <path d="M22 92 C48 68, 72 42, 92 16 C97 10, 102 18, 107 14 C112 10, 122 28, 144 54 C150 61, 155 52, 162 59 C174 71, 186 82, 198 92" stroke="#4D733B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            
+                            <!-- Left Pickleball Paddle -->
+                            <g transform="translate(86, 62) rotate(-38)">
+                                <rect x="-13" y="-26" width="26" height="30" rx="10" fill="#FAF9F5" stroke="#4D733B" stroke-width="2.5"/>
+                                <rect x="-10" y="-23" width="20" height="24" rx="7" stroke="#4D733B" stroke-width="1"/>
+                                <rect x="-3.5" y="4" width="7" height="12" rx="1.5" fill="#FAF9F5" stroke="#4D733B" stroke-width="2"/>
+                                <line x1="-3.5" y1="8" x2="3.5" y2="8" stroke="#4D733B" stroke-width="1.2"/>
+                                <line x1="-3.5" y1="12" x2="3.5" y2="12" stroke="#4D733B" stroke-width="1.2"/>
+                            </g>
+
+                            <!-- Right Pickleball Paddle -->
+                            <g transform="translate(134, 62) rotate(38)">
+                                <rect x="-13" y="-26" width="26" height="30" rx="10" fill="#FAF9F5" stroke="#4D733B" stroke-width="2.5"/>
+                                <rect x="-10" y="-23" width="20" height="24" rx="7" stroke="#4D733B" stroke-width="1"/>
+                                <rect x="-3.5" y="4" width="7" height="12" rx="1.5" fill="#FAF9F5" stroke="#4D733B" stroke-width="2"/>
+                                <line x1="-3.5" y1="8" x2="3.5" y2="8" stroke="#4D733B" stroke-width="1.2"/>
+                                <line x1="-3.5" y1="12" x2="3.5" y2="12" stroke="#4D733B" stroke-width="1.2"/>
+                            </g>
+
+                            <!-- Perforated Pickleball -->
+                            <circle cx="110" cy="64" r="6.5" fill="#FAF9F5" stroke="#4D733B" stroke-width="2"/>
+                            <circle cx="108" cy="62.5" r="1" fill="#4D733B"/>
+                            <circle cx="112" cy="62.5" r="1" fill="#4D733B"/>
+                            <circle cx="110" cy="65" r="1" fill="#4D733B"/>
+                            <circle cx="108" cy="66.5" r="0.9" fill="#4D733B"/>
+                            <circle cx="112" cy="66.5" r="0.9" fill="#4D733B"/>
+
+                            <!-- Perspective Pickleball Court Base (#4D733B) -->
+                            <polygon points="36,92 184,92 208,136 12,136" fill="#4D733B"/>
+
+                            <!-- Left Service Courts (#CED6BE Pale Celadon) -->
+                            <polygon points="42,97 86,97 82,113 31,113" fill="#CED6BE"/>
+                            <polygon points="30,116 81,116 77,131 20,131" fill="#CED6BE"/>
+
+                            <!-- Right Service Courts (#CED6BE Pale Celadon) -->
+                            <polygon points="134,97 178,97 189,113 138,113" fill="#CED6BE"/>
+                            <polygon points="139,116 190,116 200,131 143,131" fill="#CED6BE"/>
+
+                            <!-- Non-Volley Kitchen Zone (#4D733B) -->
+                            <polygon points="89,97 131,97 135,131 85,131" fill="#4D733B"/>
+
+                            <!-- Center Net & Post -->
+                            <line x1="110" y1="84" x2="110" y2="136" stroke="#24331C" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="108" y1="86" x2="112" y2="86" stroke="#24331C" stroke-width="2"/>
+                        </svg>
+                    </div>
+
+                    <!-- Brand Wordmark matching Logo Serif & Calligraphic Script -->
+                    <div>
+                        <span class="font-serifLogo font-black text-xl sm:text-3xl md:text-4xl lg:text-[2.75rem] tracking-[0.08em] text-mview-moss leading-none uppercase block">
+                            M-VIEW COURTS
+                        </span>
+                        <span class="font-scriptLogo text-base sm:text-xl md:text-2xl text-mview-moss leading-none block mt-1">
+                            pickle &amp; café
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Center Navigation Pills -->
+                <nav class="hidden md:flex items-center gap-1.5 bg-white/60 backdrop-blur-md p-1.5 rounded-full border border-white/70 shadow-2xs text-xs font-bold text-mview-ink">
+                    <a href="#home-hero" class="px-4 py-1.5 rounded-full hover:bg-white hover:text-mview-moss transition">Home</a>
+                    <a href="#booking-section" class="px-4 py-1.5 rounded-full hover:bg-white hover:text-mview-moss transition">Book Court</a>
+                    <a href="#venue-cafe-showcase" class="px-4 py-1.5 rounded-full hover:bg-white hover:text-mview-moss transition">Rates &amp; Café</a>
+                </nav>
+
+                <!-- Right Controls: Live Sync Status -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <div id="sync-indicator" class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 backdrop-blur-md border border-white/80 shadow-2xs text-xs font-bold text-mview-forest">
+                        <span class="w-2 h-2 rounded-full bg-mview-moss animate-pulse"></span>
+                        <span>Live Schedule</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- FULL-BLEED SCENIC OUTDOOR COURT HOMEPAGE HERO -->
+    <section id="home-hero" class="hero-outdoor-court relative text-white min-h-[78vh] sm:min-h-[82vh] flex flex-col justify-between border-b-4 border-mview-moss overflow-hidden">
+        <!-- Scenic Vector Backdrop Fallback (Displays cleanly if external .jpg isn't bundled) -->
+        <svg viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-85" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+                <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#3B6E8C"/>
+                    <stop offset="55%" stop-color="#7BA9A9"/>
+                    <stop offset="100%" stop-color="#C8D6B9"/>
+                </linearGradient>
+                <linearGradient id="matutumGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#3F6044"/>
+    <!-- FULL-BLEED M-VIEW LOGO HOMEPAGE HERO -->
+    <section id="home-hero" class="hero-outdoor-court relative text-mview-ink min-h-[78vh] sm:min-h-[82vh] flex flex-col justify-between border-b-4 border-mview-moss overflow-hidden">
+        <!-- Centered M-VIEW Courts Logo Artwork Backdrop -->
+        <div class="absolute inset-0 z-0 pointer-events-none flex items-center justify-center p-6 sm:p-12 overflow-hidden" aria-hidden="true">
+            <img
+                src="att.0ZLiUq3_l0ull7czfBs8901uy9gTeeNNOLdgUDfu_OY.jpeg"
+                alt="M-VIEW Courts Pickle &amp; Café Logo Background"
+                class="w-full max-w-2xl max-h-[75vh] object-contain opacity-90 select-none"
+                onerror="this.style.display='none'; document.getElementById('hero-logo-svg-fallback')?.classList.remove('hidden');"
+            >
+            <!-- Vector M-VIEW Courts Logo Fallback -->
+            <svg id="hero-logo-svg-fallback" viewBox="0 0 220 145" class="hidden w-full max-w-2xl h-auto opacity-85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 92 C48 68, 72 42, 92 16 C97 10, 102 18, 107 14 C112 10, 122 28, 144 54 C150 61, 155 52, 162 59 C174 71, 186 82, 198 92" stroke="#4D733B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <polygon points="36,92 184,92 208,136 12,136" fill="#4D733B"/>
+                <polygon points="42,97 86,97 82,113 31,113" fill="#CED6BE"/>
+                <polygon points="30,116 81,116 77,131 20,131" fill="#CED6BE"/>
+                <polygon points="134,97 178,97 189,113 138,113" fill="#CED6BE"/>
+                <polygon points="139,116 190,116 200,131 143,131" fill="#CED6BE"/>
+                <line x1="110" y1="84" x2="110" y2="136" stroke="#24331C" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <!-- Soft Readability Overlay for Foreground Content -->
+        <div
+            class="absolute inset-0 z-0 pointer-events-none"
+            style="background: linear-gradient(180deg, rgba(250, 249, 245, 0.72) 0%, rgba(250, 249, 245, 0.55) 52%, rgba(24, 38, 17, 0.84) 100%);"
+        ></div>
+
+        <div class="relative z-10 max-w-6xl w-full mx-auto px-4 sm:px-6 pt-12 sm:pt-18 pb-10 flex-1 flex flex-col justify-center">
+            <div class="max-w-3xl space-y-5 sm:space-y-6">
+                <!-- Welcoming Location Pill Badge -->
+                <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-mview-creamWarm/90 backdrop-blur-md border border-mview-moss/40 text-mview-ink text-xs sm:text-sm font-bold tracking-wide shadow-md">
+                    <span class="w-2 h-2 rounded-full bg-mview-moss animate-pulse"></span>
+                    <i class="fa-solid fa-table-tennis-paddle-ball text-mview-moss"></i>
+                    <span>M-VIEW Courts • Pickle &amp; Café</span>
+                </div>
+
+                <!-- Hero Logo Headline & Script Subtitle -->
+                <div>
+                    <h1 class="font-serifLogo font-black text-4xl sm:text-6xl lg:text-7xl tracking-[0.08em] text-mview-moss uppercase drop-shadow-xs leading-[1.05]">
+                        M-VIEW COURTS
+                    </h1>
+                    <p class="font-scriptLogo text-3xl sm:text-5xl text-mview-forest drop-shadow-xs mt-1.5 sm:mt-2">
+                        pickle &amp; café
+                    </p>
+                </div>
+
+                <!-- Warm, Friendly Outdoor Court Caption & Subtitle -->
+                <div class="space-y-3 max-w-2xl bg-mview-creamWarm/85 backdrop-blur-xs rounded-2xl p-4 border border-mview-border/80">
+                    <p class="text-lg sm:text-2xl font-bold text-mview-ink leading-snug">
+                        Where crisp morning dinks meet the mountain breeze.
+                    </p>
+                    <p class="text-xs sm:text-base text-mview-muted leading-relaxed font-medium">
+                        Gather your doubles squad on our two scenic outdoor <strong class="text-mview-moss">silica sand finished</strong> courts framed by lush greenery and Mount Matutum. Open daily from <strong class="text-mview-forest">5:00 AM to 2:00 AM</strong> for sunny morning rallies and floodlit night sessions.
+                    </p>
+                </div>
+
+                <!-- Primary Hero CTA Buttons -->
+                <div class="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
+                    <a href="#booking-section" class="px-7 py-4 sm:px-8 sm:py-4 rounded-full bg-mview-moss hover:bg-mview-forest text-white font-extrabold text-sm sm:text-base border-2 border-mview-celadon shadow-xl flex items-center gap-3 transition transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-calendar-check text-mview-gold text-lg"></i>
+                        <span>Reserve a Court</span>
+                        <i class="fa-solid fa-arrow-down text-xs opacity-90"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Hero Warm Glassmorphic Feature Strip -->
+        <div class="relative z-10 bg-[#1B2A14]/85 backdrop-blur-md border-t border-white/20">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-xs sm:text-sm">
+                <div class="flex items-center gap-3 bg-white/5 rounded-2xl p-2.5 border border-white/10">
+                    <div class="w-10 h-10 rounded-2xl bg-mview-moss border border-mview-celadon/40 flex items-center justify-center text-mview-celadon shrink-0">
+                        <i class="fa-solid fa-table-tennis-paddle-ball text-base"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-white">2 Outdoor Courts</div>
+                        <div class="text-[11px] text-mview-celadon/90">Silica sand finished</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 bg-white/5 rounded-2xl p-2.5 border border-white/10">
+                    <div class="w-10 h-10 rounded-2xl bg-mview-moss border border-mview-celadon/40 flex items-center justify-center text-mview-gold shrink-0">
+                        <i class="fa-solid fa-mountain text-base"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-white">Mt. Matutum View</div>
+                        <div class="text-[11px] text-mview-celadon/90">Fresh open-air breeze</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 bg-white/5 rounded-2xl p-2.5 border border-white/10">
+                    <div class="w-10 h-10 rounded-2xl bg-mview-moss border border-mview-celadon/40 flex items-center justify-center text-mview-gold shrink-0">
+                        <i class="fa-solid fa-lightbulb text-base"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-white">Daily 5AM – 2AM</div>
+                        <div class="text-[11px] text-mview-celadon/90">Pro LED night floodlights</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 bg-white/5 rounded-2xl p-2.5 border border-white/10">
+                    <div class="w-10 h-10 rounded-2xl bg-mview-moss border border-mview-celadon/40 flex items-center justify-center text-mview-latte shrink-0">
+                        <i class="fa-solid fa-mug-hot text-base"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-white">M-VIEW Café</div>
+                        <div class="text-[11px] text-mview-celadon/90">Coffee, coolers &amp; gear</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <main id="booking-section" class="max-w-7xl w-full mx-auto px-3 sm:px-6 mt-8 flex-1 scroll-mt-24 space-y-8">
+
+        <!-- ADMIN DASHBOARD PANEL (Hidden until Admin PIN is verified) -->
+        <section id="admin-panel" class="hidden bg-mview-creamWarm rounded-3xl border-2 border-mview-moss shadow-botanical overflow-hidden">
+            <div class="bg-mview-forest text-white px-5 sm:px-6 py-5 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-mview-moss border border-mview-celadon/40 flex items-center justify-center text-mview-gold text-xl">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-serifLogo font-bold text-base sm:text-lg tracking-wider uppercase">M-VIEW Admin Control Center</h2>
+                        <p class="text-xs text-mview-celadon">Verify payments, confirm court reservations, and manage Walk-Ins</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <button onclick="openAdminWalkInModal()" class="px-4 py-2 rounded-full bg-mview-moss hover:bg-mview-celadon hover:text-mview-forest text-white text-xs font-bold border border-mview-celadon/40 flex items-center gap-1.5 transition">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add Walk-In / Open Play</span>
+                    </button>
+                    <button onclick="openPaymentSettingsModal()" class="px-3.5 py-2 rounded-full bg-sky-600/95 hover:bg-sky-500 text-white text-xs font-bold border border-sky-300/40 flex items-center gap-1.5 transition">
+                        <i class="fa-solid fa-qrcode"></i>
+                        <span>Payment &amp; QR Settings</span>
+                    </button>
+                    <button onclick="openPinSettingsModal()" class="px-3.5 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold flex items-center gap-1.5 transition">
+                        <i class="fa-solid fa-key text-mview-gold"></i>
+                        <span>Change PIN</span>
+                    </button>
+                    <button onclick="logoutAdmin()" class="px-3.5 py-2 rounded-full bg-rose-800/85 hover:bg-rose-700 text-white text-xs font-semibold flex items-center gap-1.5 transition">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Lock</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Revenue & Booking Summary Cards -->
+            <div class="p-5 bg-mview-paper border-b border-mview-border grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-4 rounded-2xl border border-mview-border shadow-2xs">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-mview-muted uppercase">Confirmed Revenue</span>
+                        <span class="w-7 h-7 rounded-full bg-mview-sageSoft text-mview-moss flex items-center justify-center text-xs"><i class="fa-solid fa-peso-sign"></i></span>
+                    </div>
+                    <div id="stat-confirmed-rev" class="text-2xl font-extrabold text-mview-moss mt-1.5">₱0</div>
+                    <div id="stat-confirmed-hours" class="text-xs text-mview-muted mt-0.5">0 confirmed hrs total</div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border border-mview-border shadow-2xs">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-mview-muted uppercase">Pending Approval</span>
+                        <span class="w-7 h-7 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs"><i class="fa-solid fa-hourglass-half"></i></span>
+                    </div>
+                    <div id="stat-pending-rev" class="text-2xl font-extrabold text-mview-forest mt-1.5">₱0</div>
+                    <div id="stat-pending-count" class="text-xs text-mview-muted mt-0.5">0 awaiting approval</div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border border-mview-border shadow-2xs">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-mview-muted uppercase">Selected Date Total</span>
+                        <span class="w-7 h-7 rounded-full bg-mview-sageSoft text-mview-forest flex items-center justify-center text-xs"><i class="fa-regular fa-calendar-check"></i></span>
+                    </div>
+                    <div id="stat-date-rev" class="text-2xl font-extrabold text-mview-ink mt-1.5">₱0</div>
+                    <div id="stat-date-label" class="text-xs text-mview-muted mt-0.5">Confirmed on selected date</div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl border border-mview-border shadow-2xs">
+                    <div class="text-xs font-bold text-mview-muted uppercase mb-1.5">By Payment Method</div>
+                    <div id="stat-payment-breakdown" class="text-xs font-bold space-y-1 text-mview-ink"></div>
+                </div>
+            </div>
+
+            <!-- Booking Filter Controls & List -->
+            <div>
+                <div class="px-5 py-3.5 bg-mview-sageSoft/75 border-b border-mview-border flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex flex-wrap items-center gap-1.5">
+                        <button onclick="setAdminFilter('ALL')" data-filter="ALL" class="admin-filter-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-mview-moss text-white">All</button>
+                        <button onclick="setAdminFilter('PENDING')" data-filter="PENDING" class="admin-filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white text-mview-ink border border-mview-border hover:bg-mview-sageTint">
+                            Pending (<span id="badge-pending-count">0</span>)
+                        </button>
+                        <button onclick="setAdminFilter('CONFIRMED')" data-filter="CONFIRMED" class="admin-filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white text-mview-ink border border-mview-border hover:bg-mview-sageTint">Confirmed</button>
+                        <button onclick="setAdminFilter('CANCELLED')" data-filter="CANCELLED" class="admin-filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white text-mview-ink border border-mview-border hover:bg-mview-sageTint">Cancelled</button>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <label class="text-xs font-semibold text-mview-muted flex items-center gap-2 cursor-pointer bg-white px-3 py-1.5 rounded-full border border-mview-border">
+                            <input type="checkbox" id="admin-filter-selected-date" onchange="renderAdminBookings()" class="rounded border-mview-border text-mview-moss focus:ring-mview-moss">
+                            <span>Only selected date (<span id="admin-selected-date-text"></span>)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="admin-bookings-list" class="divide-y divide-mview-border max-h-[520px] overflow-y-auto">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- WELCOMING BOOKING GREETING & QUICK-SELECT HEADER -->
+        <section id="booking-schedule-section" class="space-y-5">
+            <div class="bg-mview-creamWarm rounded-3xl p-5 sm:p-6 shadow-botanical border border-mview-border flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <div class="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-mview-moss">
+                        <i class="fa-solid fa-sparkles text-mview-gold"></i>
+                        <span>Book Your Next Match</span>
+                    </div>
+                    <h2 class="font-serifLogo font-extrabold text-xl sm:text-2xl text-mview-ink tracking-wide">
+                        Choose Your Date &amp; Court Time
+                    </h2>
+                    <p class="text-xs sm:text-sm text-mview-muted">
+                        Tap one or more open slots below on <strong class="text-mview-moss">Court 1</strong> or <strong class="text-mview-moss">Court 2</strong>. Multiple hours &amp; courts can be reserved in one go!
+                    </p>
+                </div>
+
+                <!-- Warm Sun & Floodlight Rate Pills -->
+                <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+                    <div class="flex items-center gap-2.5 bg-amber-50/90 px-4 py-2.5 rounded-2xl border border-amber-200/80 shadow-2xs">
+                        <div class="w-8 h-8 rounded-full bg-mview-gold/25 text-amber-700 flex items-center justify-center">
+                            <i class="fa-solid fa-sun"></i>
+                        </div>
+                        <div>
+                            <div class="text-[11px] font-bold text-amber-800 uppercase">Day-Time (5AM–5PM)</div>
+                            <div class="text-sm font-extrabold text-mview-ink">₱180.00 <span class="text-xs font-normal text-mview-muted">/ hr</span></div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2.5 bg-mview-sageSoft px-4 py-2.5 rounded-2xl border border-mview-border shadow-2xs">
+                        <div class="w-8 h-8 rounded-full bg-mview-moss/15 text-mview-forest flex items-center justify-center">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <div class="text-[11px] font-bold text-mview-forest uppercase">Night-Time (5PM–2AM)</div>
+                            <div class="text-sm font-extrabold text-mview-ink">₱230.00 <span class="text-xs font-normal text-mview-muted">/ hr</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Date & Time-of-Day Filter Bar -->
+            <div class="bg-white rounded-3xl p-4 sm:p-5 shadow-botanical border border-mview-border space-y-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <!-- Date Navigation & Quick-Date Pills -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="changeDate(-1)" class="w-10 h-10 rounded-full bg-mview-sageSoft hover:bg-mview-celadon text-mview-ink flex items-center justify-center transition" title="Previous Day">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        </button>
+                        <div class="relative flex items-center">
+                            <i class="fa-regular fa-calendar text-mview-moss absolute left-4 pointer-events-none"></i>
+                            <input type="date" id="booking-date-picker" class="pl-10 pr-4 py-2 rounded-full border border-mview-border font-bold text-xs sm:text-sm text-mview-ink focus:outline-none focus:ring-2 focus:ring-mview-moss bg-mview-creamWarm cursor-pointer">
+                        </div>
+                        <button onclick="changeDate(1)" class="w-10 h-10 rounded-full bg-mview-sageSoft hover:bg-mview-celadon text-mview-ink flex items-center justify-center transition" title="Next Day">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <div class="h-5 w-px bg-mview-border mx-1 hidden sm:block"></div>
+
+                        <!-- 7-Day Quick Date Strip (Today + Next 6 Days) -->
+                        <div id="seven-day-strip" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar max-w-full py-0.5">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Friendly Time-of-Day Filter Pills -->
+                    <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 md:pb-0">
+                        <button onclick="setTimeFilter('ALL')" data-timefilter="ALL" class="time-filter-btn px-3.5 py-2 rounded-full text-xs font-bold bg-mview-forest text-white shrink-0 transition">
+                            All Hours (5AM–2AM)
+                        </button>
+                        <button onclick="setTimeFilter('MORNING')" data-timefilter="MORNING" class="time-filter-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-mview-paper hover:bg-mview-sageSoft text-mview-ink border border-mview-border shrink-0 transition">
+                            <i class="fa-solid fa-mug-saucer text-mview-latte mr-1"></i>Morning (5AM–12PM)
+                        </button>
+                        <button onclick="setTimeFilter('AFTERNOON')" data-timefilter="AFTERNOON" class="time-filter-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-mview-paper hover:bg-mview-sageSoft text-mview-ink border border-mview-border shrink-0 transition">
+                            <i class="fa-solid fa-sun text-mview-gold mr-1"></i>Afternoon (12PM–5PM)
+                        </button>
+                        <button onclick="setTimeFilter('NIGHT')" data-timefilter="NIGHT" class="time-filter-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-mview-paper hover:bg-mview-sageSoft text-mview-ink border border-mview-border shrink-0 transition">
+                            <i class="fa-solid fa-moon text-mview-moss mr-1"></i>Night Lights (5PM–2AM)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Color Legend Bar -->
+                <div class="pt-3 border-t border-mview-border/70 flex flex-wrap items-center justify-between gap-3 text-xs font-semibold">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <div class="flex items-center gap-2">
+                            <span class="w-4 h-4 rounded-full bg-white border-2 border-mview-moss inline-block shadow-2xs"></span>
+                            <span class="text-mview-ink">Available</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-4 h-4 rounded-full bg-mview-moss inline-block shadow-2xs"></span>
+                            <span class="text-mview-ink">Your Selection</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-4 h-4 rounded-full bg-amber-100 border border-amber-400 inline-block"></span>
+                            <span class="text-amber-900">Pending Approval</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-4 h-4 rounded-full bg-mview-forest inline-block"></span>
+                            <span class="text-mview-ink">Confirmed / Open Play</span>
+                        </div>
+                    </div>
+                    <span class="text-[11px] text-mview-muted hidden sm:inline">
+                        <i class="fa-solid fa-shield-heart text-mview-moss mr-1"></i>Slots lock immediately once Admin confirms payment
+                    </span>
+                </div>
+            </div>
+
+            <!-- Interactive Operating Hours (5AM–2AM) Court 1 & Court 2 Board Grid -->
+            <div class="bg-white rounded-3xl shadow-botanical border-2 border-mview-moss/85 overflow-hidden flex flex-col w-full">
+                <!-- Court Column Headers (Frozen Top Bar) -->
+                <div class="grid grid-cols-12 bg-mview-moss text-white border-b-2 border-white/40 z-20 court-surface-card shrink-0 w-full">
+                    <div class="col-span-4 sm:col-span-3 md:col-span-2 p-3 sm:p-4 font-serifLogo font-bold text-xs sm:text-sm tracking-wider uppercase flex items-center gap-2 border-r border-white/25 bg-mview-forest/95">
+                        <i class="fa-regular fa-clock text-mview-gold"></i>
+                        <span>Time Slot</span>
+                    </div>
+                    <div class="col-span-4 sm:col-span-4 md:col-span-5 p-3 sm:p-4 text-center border-r border-white/25 bg-mview-moss/95">
+                        <div class="font-serifLogo font-extrabold text-sm sm:text-base tracking-widest uppercase flex items-center justify-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-mview-gold shadow-xs"></span>
+                            <span>COURT 1</span>
+                        </div>
+                        <p class="font-scriptLogo text-xs sm:text-sm text-mview-celadon hidden sm:block mt-0.5">Garden Side • Silica Sand Finish</p>
+                    </div>
+                    <div class="col-span-4 sm:col-span-5 md:col-span-5 p-3 sm:p-4 text-center bg-mview-moss/95">
+                        <div class="font-serifLogo font-extrabold text-sm sm:text-base tracking-widest uppercase flex items-center justify-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-white shadow-xs"></span>
+                            <span>COURT 2</span>
+                        </div>
+                        <p class="font-scriptLogo text-xs sm:text-sm text-mview-celadon hidden sm:block mt-0.5">Mt. Matutum View Side • Silica Sand Finish</p>
+                    </div>
+                </div>
+
+                <!-- Loading Spinner State -->
+                <div id="grid-loading" class="p-14 text-center text-mview-muted bg-mview-creamWarm">
+                    <i class="fa-solid fa-circle-notch fa-spin text-3xl text-mview-moss mb-3"></i>
+                    <p class="text-sm font-bold text-mview-ink">Preparing live M-VIEW court schedule...</p>
+                </div>
+
+                <!-- Scrollable Time & Available Slots Container (Frozen Frame) -->
+                <div id="court-slots-container" class="divide-y divide-mview-border/70 hidden max-h-[540px] sm:max-h-[600px] overflow-y-auto overscroll-contain">
+                    <!-- 21 rows (5AM-2AM) generated dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- EDITORIAL RATES, CAFÉ & VENUE SHOWCASE -->
+        <section id="venue-cafe-showcase" class="pt-4 space-y-5 scroll-mt-24">
+            <div class="text-center max-w-2xl mx-auto space-y-1.5">
+                <span class="font-scriptLogo text-2xl sm:text-3xl text-mview-moss block">play, sip &amp; unwind</span>
+                <h2 class="font-serifLogo font-extrabold text-2xl sm:text-3xl text-mview-ink tracking-wide uppercase">
+                    Courtside Rates &amp; M-VIEW Café
+                </h2>
+                <p class="text-xs sm:text-sm text-mview-muted">
+                    Everything you need for a great session under the South Cotabato sky—from tournament courts to cold brews and paddle gear.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- Card 1: Court Rental Rates -->
+                <div class="bg-mview-creamWarm rounded-3xl p-6 border border-mview-border shadow-botanical flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="w-12 h-12 rounded-2xl bg-mview-sageSoft text-mview-moss flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-table-tennis-paddle-ball"></i>
+                        </div>
+                        <h3 class="font-serifLogo font-extrabold text-lg text-mview-ink tracking-wide uppercase">Silica Sand Courts</h3>
+                        <p class="text-xs text-mview-muted leading-relaxed">
+                            Two regulation outdoor <strong>silica sand finished</strong> courts offering superior grip, reduced sun glare, and true ball bounce with views of Mount Matutum.
+                        </p>
+                        <div class="space-y-2 pt-1 text-xs sm:text-sm">
+                            <div class="flex items-center justify-between p-2.5 rounded-2xl bg-white border border-mview-border">
+                                <span class="font-semibold text-mview-ink"><i class="fa-solid fa-sun text-mview-gold mr-1.5"></i>Day-Time (5AM – 5PM)</span>
+                                <strong class="text-mview-moss font-extrabold">₱180.00/hr</strong>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 rounded-2xl bg-white border border-mview-border">
+                                <span class="font-semibold text-mview-ink"><i class="fa-solid fa-lightbulb text-mview-forest mr-1.5"></i>Night-Time (5PM – 2AM)</span>
+                                <strong class="text-mview-forest font-extrabold">₱230.00/hr</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#booking-section" class="inline-flex items-center gap-1.5 text-xs font-extrabold text-mview-moss hover:text-mview-forest">
+                        <span>Pick an open time slot</span>
+                        <i class="fa-solid fa-arrow-up"></i>
+                    </a>
+                </div>
+
+                <!-- Card 2: M-VIEW Courtside Café -->
+                <div class="bg-mview-creamWarm rounded-3xl p-6 border border-mview-border shadow-botanical flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100/80 text-mview-latte flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-mug-hot"></i>
+                        </div>
+                        <h3 class="font-serifLogo font-extrabold text-lg text-mview-ink tracking-wide uppercase">M-VIEW Café</h3>
+                        <p class="text-xs text-mview-muted leading-relaxed">
+                            Refuel between sets at our open-air courtside café bar. Pre-order drinks in your booking notes so they’re chilled upon arrival!
+                        </p>
+                    </div>
+                    <div class="text-xs font-semibold text-mview-muted">
+                        <i class="fa-solid fa-heart text-mview-latte mr-1"></i>Mention drink requests when booking
+                    </div>
+                </div>
+
+                <!-- Card 3: Gear Rentals & Open Play -->
+                <div class="bg-mview-creamWarm rounded-3xl p-6 border border-mview-border shadow-botanical flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="w-12 h-12 rounded-2xl bg-mview-sageSoft text-mview-forest flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <h3 class="font-serifLogo font-extrabold text-lg text-mview-ink tracking-wide uppercase">Gear &amp; Open Play</h3>
+                        <p class="text-xs text-mview-muted leading-relaxed">
+                            New to pickleball or forgot your paddle? Carbon &amp; composite demo paddles plus outdoor 40-hole balls are available at the counter.
+                        </p>
+                        <div class="p-3 rounded-2xl bg-mview-sageSoft/70 border border-mview-border text-xs text-mview-ink space-y-1">
+                            <div class="font-bold text-mview-forest"><i class="fa-solid fa-users mr-1.5"></i>Community Open Play</div>
+                            <p class="text-mview-muted">Check the live grid for scheduled Open Play blocks to join friendly rotational games!</p>
+                        </div>
+                    </div>
+                    <div class="text-xs font-semibold text-mview-moss">
+                        <i class="fa-solid fa-circle-check mr-1"></i>Beginner &amp; family friendly
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Warm Botanical Footer -->
+    <footer class="mt-12 bg-mview-forest text-white border-t-4 border-mview-moss">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div>
+                <div class="font-serifLogo font-black text-lg tracking-widest uppercase text-white">M-VIEW COURTS</div>
+                <div class="font-scriptLogo text-base text-mview-celadon">pickle &amp; café • South Cotabato</div>
+            </div>
+            <div class="flex flex-col sm:items-end gap-2.5">
+                <p class="text-xs text-mview-celadon/90 max-w-md">
+                    Open Daily 5:00 AM – 2:00 AM • Silica Sand Finished Outdoor Courts • Reservations are held temporarily upon submission and locked once verified by M-VIEW Admin.
+                </p>
+                <button id="admin-toggle-btn" onclick="handleAdminButtonClick()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-semibold text-mview-celadon/75 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition">
+                    <i id="admin-btn-icon" class="fa-solid fa-lock text-mview-celadon/75"></i>
+                    <span id="admin-btn-text">Admin Access</span>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Bottom Selection Cart Pill (Appears when 1+ slots selected) -->
+    <div id="selection-cart-bar" class="fixed bottom-3 inset-x-3 sm:inset-x-6 z-30 transform translate-y-[140%] transition-transform duration-300 pointer-events-none">
+        <div class="max-w-4xl mx-auto bg-mview-forest/95 backdrop-blur-lg text-white rounded-3xl border-2 border-mview-gold/70 shadow-2xl px-4 py-3.5 sm:px-6 sm:py-4 flex flex-wrap items-center justify-between gap-3 pointer-events-auto">
+            <div class="flex items-center gap-3.5">
+                <div class="w-11 h-11 rounded-2xl bg-mview-gold text-mview-ink font-extrabold flex items-center justify-center text-base shadow-xs shrink-0">
+                    <span id="cart-slot-count">0</span>
+                </div>
+                <div>
+                    <p id="cart-summary-text" class="text-xs sm:text-sm font-bold text-white">0 slots selected</p>
+                    <p class="text-xs text-mview-celadon">Total Court Fee: <strong id="cart-total-price" class="text-mview-gold text-sm sm:text-base ml-1">₱0</strong></p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 ml-auto">
+                <button onclick="clearSelectedSlots()" class="px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-xs sm:text-sm font-semibold text-mview-celadon transition">
+                    Clear
+                </button>
+                <button onclick="openBookingModal()" class="px-6 py-2.5 rounded-full bg-mview-gold hover:bg-amber-300 text-mview-ink font-extrabold text-xs sm:text-sm shadow-md flex items-center gap-2 transition">
+                    <span>Complete Booking</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 1: Friendly Customer Booking Form Modal -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-mview-ink/60 backdrop-blur-xs p-4 overflow-y-auto">
+        <div class="bg-mview-creamWarm rounded-3xl max-w-lg w-full shadow-2xl border-2 border-mview-moss overflow-hidden my-auto">
+            <div class="bg-mview-moss text-white px-6 py-4 flex items-center justify-between border-b border-white/20">
+                <div>
+                    <h3 class="font-serifLogo font-bold text-base sm:text-lg tracking-wider uppercase">Reserve Your Court</h3>
+                    <p class="font-scriptLogo text-sm text-mview-celadon">M-VIEW Courts pickle &amp; café</p>
+                </div>
+                <button onclick="closeModal('booking-modal')" class="w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center text-white transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="customer-booking-form" onsubmit="submitCustomerBooking(event)" class="p-5 sm:p-6 space-y-4">
+                <!-- Selected Slots Summary Box -->
+                <div class="bg-white border border-mview-border rounded-2xl p-4 shadow-2xs">
+                    <div class="flex items-center justify-between text-xs font-extrabold text-mview-moss uppercase tracking-wider mb-2">
+                        <span><i class="fa-regular fa-calendar-check mr-1"></i>Selected Schedule</span>
+                        <span id="modal-booking-date"></span>
+                    </div>
+                    <div id="modal-slots-list" class="space-y-1.5 text-xs sm:text-sm text-mview-ink font-medium max-h-28 overflow-y-auto"></div>
+                    <div class="mt-3 pt-2.5 border-t border-mview-border flex items-center justify-between">
+                        <span class="text-xs font-bold text-mview-muted">Total Amount Due:</span>
+                        <span id="modal-total-amount" class="text-xl font-extrabold text-mview-moss">₱0</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                        <label class="block text-xs font-bold text-mview-ink mb-1">Player Full Name *</label>
+                        <input type="text" id="input-player-name" required placeholder="e.g., Juan Dela Cruz" class="w-full px-4 py-2.5 rounded-2xl border border-mview-border bg-white text-sm text-mview-ink focus:outline-none focus:ring-2 focus:ring-mview-moss">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-mview-ink mb-1">Mobile No. / Messenger *</label>
+                        <input type="text" id="input-player-contact" required placeholder="e.g., 0917-123-4567" class="w-full px-4 py-2.5 rounded-2xl border border-mview-border bg-white text-sm text-mview-ink focus:outline-none focus:ring-2 focus:ring-mview-moss">
+                    </div>
+                </div>
+
+                <!-- Payment Method Selector -->
+                <div>
+                    <label class="block text-xs font-bold text-mview-ink mb-1.5">How would you like to pay? *</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="paymentMethod" value="G-Cash" checked onchange="togglePaymentRefHint()" class="peer sr-only">
+                            <div class="p-3 rounded-2xl border-2 border-mview-border bg-white peer-checked:border-mview-moss peer-checked:bg-mview-sageSoft text-center transition">
+                                <i class="fa-solid fa-mobile-screen-button text-mview-moss text-base"></i>
+                                <div class="text-xs font-bold text-mview-ink mt-1">G-Cash / QR</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="paymentMethod" value="CASH" onchange="togglePaymentRefHint()" class="peer sr-only">
+                            <div class="p-3 rounded-2xl border-2 border-mview-border bg-white peer-checked:border-mview-moss peer-checked:bg-mview-sageSoft text-center transition">
+                                <i class="fa-solid fa-money-bill-wave text-mview-forest text-base"></i>
+                                <div class="text-xs font-bold text-mview-ink mt-1">Cash at Café</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Helpful Copyable G-Cash Details & Live QR Code Card -->
+                <div id="gcash-details-card" class="bg-sky-50/90 border border-sky-200 rounded-2xl p-3.5 space-y-3 text-xs">
+                    <div class="flex items-center justify-between gap-2">
+                        <div>
+                            <div class="font-bold text-sky-950" id="display-gcash-account-name">M-VIEW Courts G-Cash</div>
+                            <div class="text-sky-700 font-mono font-bold mt-0.5" id="display-gcash-number">0917-888-6843</div>
+                        </div>
+                        <button type="button" onclick="copyGcashNumber()" class="px-3.5 py-1.5 rounded-full bg-white hover:bg-sky-100 text-sky-800 border border-sky-200 font-bold text-xs flex items-center gap-1.5 transition shrink-0 shadow-2xs">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>Copy #</span>
+                        </button>
+                    </div>
+
+                    <!-- Uploaded QR Code Preview Box (Shown automatically when QR is uploaded in Admin) -->
+                    <div id="customer-qr-container" class="hidden pt-2.5 border-t border-sky-200/80 flex flex-col items-center text-center">
+                        <button type="button" onclick="openQrZoomModal()" class="group relative bg-white p-2.5 rounded-2xl border-2 border-sky-200 hover:border-mview-moss shadow-2xs transition">
+                            <img id="customer-gcash-qr-img" src="" alt="M-VIEW G-Cash Payment QR Code" class="w-40 h-40 sm:w-44 sm:h-44 object-contain rounded-xl mx-auto">
+                            <span class="mt-1.5 inline-flex items-center gap-1 text-[11px] font-bold text-sky-800 group-hover:text-mview-moss">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                                <span>Tap QR to Enlarge</span>
+                            </span>
+                        </button>
+                    </div>
+
+                    <!-- G-Cash Payment Receipt / Screenshot Upload Section -->
+                    <div id="gcash-receipt-upload-section" class="pt-3 border-t border-sky-200/80 space-y-2">
+                        <div class="flex items-center justify-between gap-2">
+                            <label class="text-xs font-bold text-sky-950 flex items-center gap-1.5">
+                                <i class="fa-solid fa-receipt text-sky-700"></i>
+                                <span>Upload G-Cash Payment Receipt / Screenshot *</span>
+                            </label>
+                            <button type="button" id="remove-customer-receipt-btn" onclick="clearCustomerReceipt()" class="hidden text-[11px] font-bold text-rose-700 hover:underline">
+                                <i class="fa-solid fa-trash-can mr-0.5"></i>Remove
+                            </button>
+                        </div>
+
+                        <div id="customer-receipt-preview-box" class="hidden bg-white p-2.5 rounded-2xl border border-sky-200 flex items-center gap-3">
+                            <button type="button" onclick="openReceiptZoomModal(draftCustomerReceiptData)" class="shrink-0">
+                                <img id="customer-receipt-preview-img" src="" alt="Uploaded G-Cash Receipt Preview" class="w-16 h-16 object-cover rounded-xl border border-mview-border">
+                            </button>
+                            <div class="min-w-0 flex-1 text-left">
+                                <div class="text-xs font-bold text-mview-forest truncate">Receipt attached &amp; ready</div>
+                                <div class="text-[11px] text-mview-muted">Tap thumbnail to inspect or choose another photo</div>
+                            </div>
+                        </div>
+
+                        <label class="w-full cursor-pointer py-2.5 px-4 rounded-xl bg-white hover:bg-sky-100/80 text-sky-900 font-bold text-xs flex items-center justify-center gap-2 border border-sky-300 shadow-2xs transition">
+                            <i class="fa-solid fa-camera text-sky-700"></i>
+                            <span id="customer-receipt-btn-label">Choose Receipt Photo / Screenshot</span>
+                            <input type="file" id="customer-receipt-file-input" accept="image/*" onchange="handleCustomerReceiptUpload(event)" class="hidden">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Payment Reference Number -->
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <label class="text-xs font-bold text-mview-ink">Payment Reference Number</label>
+                        <span id="ref-hint-badge" class="text-[11px] font-semibold text-mview-moss">Enter G-Cash Reference # for faster approval</span>
+                    </div>
+                    <input type="text" id="input-payment-ref" placeholder="Enter G-Cash Ref # (optional if paying Cash)" class="w-full px-4 py-2.5 rounded-2xl border border-mview-border bg-white text-sm text-mview-ink focus:outline-none focus:ring-2 focus:ring-mview-moss">
+                </div>
+
+                <!-- Notes -->
+                <div>
+                    <label class="block text-xs font-bold text-mview-ink mb-1">Notes / Café &amp; Paddle Requests (Optional)</label>
+                    <textarea id="input-booking-notes" rows="2" placeholder="e.g., 2 demo paddles, 4 iced coffees from M-VIEW Café..." class="w-full px-4 py-2.5 rounded-2xl border border-mview-border bg-white text-sm text-mview-ink focus:outline-none focus:ring-2 focus:ring-mview-moss"></textarea>
+                </div>
+
+                <div class="bg-mview-sageSoft border border-mview-border rounded-2xl p-3 text-xs text-mview-ink flex items-start gap-2.5">
+                    <i class="fa-solid fa-heart text-mview-moss mt-0.5"></i>
+                    <span>Your slot is held as <strong>Pending Approval</strong> right away while M-VIEW Admin verifies your payment!</span>
+                </div>
+
+                <div class="flex items-center justify-end gap-2 pt-1">
+                    <button type="button" onclick="closeModal('booking-modal')" class="px-5 py-2.5 rounded-full border border-mview-border bg-white text-mview-ink font-semibold text-sm hover:bg-mview-sageTint transition">
+                        Cancel
+                    </button>
+                    <button type="submit" id="submit-booking-btn" class="px-6 py-2.5 rounded-full bg-mview-moss hover:bg-mview-forest text-white font-bold text-sm shadow-md flex items-center gap-2 transition">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span>Submit Reservation</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Friendly Booking Pass / Pending Confirmation Modal -->
+    <div id="receipt-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-mview-ink/60 backdrop-blur-xs p-4">
+        <div class="bg-mview-creamWarm rounded-3xl max-w-md w-full shadow-2xl border-2 border-mview-moss overflow-hidden text-center p-6 space-y-4">
+            <div class="w-16 h-16 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mx-auto text-3xl border-4 border-white shadow-xs animate-float-slow">
+                <i class="fa-solid fa-hourglass-half"></i>
+            </div>
+            <div>
+                <span class="px-3.5 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-xs font-extrabold uppercase tracking-wider">Pending Admin Confirmation</span>
+                <h3 class="font-serifLogo font-extrabold text-xl text-mview-moss tracking-wide uppercase mt-2.5">You’re on the List!</h3>
+                <p class="text-xs sm:text-sm text-mview-muted mt-1">
+                    Thank you, <strong id="receipt-player-name" class="text-mview-ink"></strong>! Save your booking pass below while our Admin verifies your payment.
+                </p>
+            </div>
+
+            <!-- Ticket-style Booking Pass -->
+            <div class="bg-white border-2 border-dashed border-mview-moss/50 rounded-2xl p-4 text-left space-y-2.5 text-xs sm:text-sm">
+                <div class="flex justify-between items-center border-b border-mview-border pb-2.5">
+                    <span class="text-mview-muted font-semibold">Booking Pass Code:</span>
+                    <div class="flex items-center gap-1.5">
+                        <strong id="receipt-ref-code" class="font-mono text-base text-mview-moss bg-mview-sageSoft px-2.5 py-0.5 rounded-lg">MV-0000</strong>
+                        <button onclick="copyBookingCode()" class="p-2 rounded-full bg-mview-sageSoft hover:bg-mview-celadon text-mview-ink text-xs transition" title="Copy Reference Code">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-mview-muted">Play Date:</span>
+                    <strong id="receipt-date" class="text-mview-ink"></strong>
+                </div>
+                <div class="flex justify-between gap-4">
+                    <span class="text-mview-muted shrink-0">Court &amp; Time:</span>
+                    <strong id="receipt-slots" class="text-mview-ink text-right"></strong>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-mview-muted">Payment Method:</span>
+                    <strong id="receipt-payment" class="text-mview-ink"></strong>
+                </div>
+                <div class="flex justify-between pt-2 border-t border-mview-border">
+                    <span class="text-mview-ink font-bold">Total Amount:</span>
+                    <strong id="receipt-total" class="text-mview-moss font-extrabold text-base"></strong>
+                </div>
+            </div>
+
+            <button onclick="closeModal('receipt-modal')" class="w-full py-3.5 rounded-full bg-mview-moss hover:bg-mview-forest text-white font-bold text-sm shadow-md transition">
+                Back to Court Schedule
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL 3: Admin PIN Login Modal -->
+    <div id="admin-login-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-mview-ink/65 backdrop-blur-xs p-4">
+        <div class="bg-mview-creamWarm rounded-3xl max-w-sm w-full shadow-2xl border-2 border-mview-moss overflow-hidden">
+            <div class="bg-mview-forest text-white px-5 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-lock text-mview-gold"></i>
+                    <h3 class="font-serifLogo font-bold text-sm sm:text-base tracking-wider uppercase">M-VIEW Admin Access</h3>
+                </div>
+                <button onclick="closeModal('admin-login-modal')" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form onsubmit="verifyAdminPin(event)" class="p-5 space-y-4">
+                <p class="text-xs text-mview-muted">
+                    Enter the Admin PIN to confirm bookings, upload your G-Cash QR code, or manage Open Play blocks.
+                </p>
+
+                <div>
+                    <label class="block text-xs font-bold text-mview-ink mb-1">Admin PIN</label>
+                    <input type="password" id="admin-pin-input" inputmode="numeric" required placeholder="••••" class="w-full px-4 py-3 rounded-2xl border border-mview-border bg-white text-center font-mono text-lg tracking-widest text-mview-ink focus:outline-none focus:ring-2 focus:ring-mview-moss">
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-full bg-mview-moss hover:bg-mview-forest text-white font-bold text-sm shadow-md transition">
+                    Unlock Admin Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 4: Admin Walk-In / Open Play Creator Modal -->
+    <div id="admin-walkin-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-mview-ink/60 backdrop-blur-xs p-4 overflow-y-auto">
+        <div class="bg-mview-creamWarm rounded-3xl max-w-md w-full shadow-2xl border-2 border-mview-moss overflow-hidden my-auto">
+            <div class="bg-mview-forest text-white px-5 py-4 flex items-center justify-between">
+                <h3 class="font-serifLogo font-bold text-sm sm:text-base tracking-wider uppercase">Walk-In or Open Play</h3>
+                <button onclick="closeModal('admin-walkin-modal')" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form onsubmit="submitAdminWalkIn(event)" class="p-5 space-y-3.5">
+                <div>
+                    <label class="block text-xs font-bold text-mview-ink mb-1">Booking Type</label>
+                    <select id="walkin-type" onchange="handleWalkinTypeChange()" class="w-full px-4 py-2.5 rounded-2xl border border-mview-border bg-white text-sm font-semibold text-mview-ink">
+                        <option value="WALKIN">Walk-In Player (Confirmed)</option>
+                        <option value="OPEN_PLAY">M-VIEW Open Play / Tournament Block</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-mview-ink mb-1">Date</label>
+                        <input type="date" id="walkin-date" required class="w-full px-3.5 py-2 rounded-2xl border border-mview-border bg-white text-sm text-mview-ink">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-mview-ink mb-1">Court</label>
+                        <select id="walkin-court" class="w-full px-3.5 py-2 rounded-2xl border border-mview-border bg-white text-sm font-semibold text-mview-ink">
+                            <option value="Court 1">Court 1</option>
+                            <option value="Court 2">Court 2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-mview-ink mb-1">Start Hour</label>
+                        <select id="walkin-start-hour" class="w-full px-3.5 py-2 rounded-2xl border border-mview-border bg-white text-sm text-mview-ink"></select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-mview-ink mb-1">Duration (Hours)</label>
+                        <select id="walkin-duration" class="w-full px-3.5 py-2 rounded-2xl border border-mview-border bg-white text-sm text-mview-ink">
+                            <option value="1">1 Hour</option>
+                            <option value="2">2 Hours</option>
+                            <option value="3">3 Hours</option>
+                            <option value="4">4 Hours</option>
+                            <option value="5">5 Hours</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-mview-ink mb-1">Player Name / Block Title *</label>
+                    <input type="text" id="walkin-name" required placeholder="e.g., Walk-In: Coach Mark" class="w-full px-4 py-2 rounded-2xl border border-mview-border bg-white text-sm text-mview-ink">
+                </div>
+                <div id="walkin-payment-group" class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-mview-ink mb-1">Payment Method</label>
+                        <select id="walkin-payment" class="w-full px-3.5 py-2 rounded-2xl border border-mview-border bg-white text-sm text-mview-ink">
+                            <option value="CASH">CASH</option>
+                            <option value="G-Cash">G-Cash</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-mview-ink mb-1">Ref # (Optional)</label>
+                        <input type="text" id="walkin-ref" placeholder="Ref #" class="w-full px-3.5 py-2 rounded-2xl border border-mview-border bg-white text-sm text-mview-ink">
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('admin-walkin-modal')" class="px-4 py-2 rounded-full border border-mview-border bg-white text-xs font-bold text-mview-ink">Cancel</button>
+                    <button type="submit" class="px-5 py-2 rounded-full bg-mview-moss hover:bg-mview-forest text-white text-xs font-bold shadow-2xs">Save Confirmed Slot</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 5: Change Admin PIN Modal -->
+    <div id="pin-settings-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-mview-ink/60 backdrop-blur-xs p-4">
+        <div class="bg-mview-creamWarm rounded-3xl max-w-sm w-full shadow-2xl border-2 border-mview-moss overflow-hidden">
+            <div class="bg-mview-forest text-white px-5 py-4 flex items-center justify-between">
+                <h3 class="font-serifLogo font-bold text-sm sm:text-base tracking-wider uppercase">Update Admin PIN</h3>
+                <button onclick="closeModal('pin-settings-modal')" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form onsubmit="saveNewAdminPin(event)" class="p-5 space-y-4">
+                <p class="text-xs text-mview-muted">Set a new 4–8 digit PIN for M-VIEW Courts Admin Access. Updates across all devices in real time.</p>
+                <div>
+                    <label class="block text-xs font-bold text-mview-ink mb-1">New Admin PIN</label>
+                    <input type="text" id="new-admin-pin-input" required minlength="4" maxlength="12" placeholder="e.g., 2026" class="w-full px-4 py-2.5 rounded-2xl border border-mview-border bg-white font-mono text-center text-lg text-mview-ink">
+                </div>
+                <div class="flex justify-end gap-2">
+                    <button type="button" onclick="closeModal('pin-settings-modal')" class="px-4 py-2 rounded-full border border-mview-border bg-white text-xs font-bold text-mview-ink">Cancel</button>
+                    <button type="submit" class="px-5 py-2 rounded-full bg-mview-moss hover:bg-mview-forest text-white text-xs font-bold">Update PIN</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 5B: Admin Payment & QR Code Upload Settings Modal -->
+    <div id="payment-settings-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-mview-ink/60 backdrop-blur-xs p-4 overflow-y-auto">
+        <div class="bg-mview-creamWarm rounded-3xl max-w-md w-full shadow-2xl border-2 border-mview-moss overflow-hidden my-auto">
+            <div class="bg-mview-forest text-white px-5 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-qrcode text-mview-gold"></i>
+                    <h3 class="font-serifLogo font-bold text-sm sm:text-base tracking-wider uppercase">Payment &amp; QR Settings</h3>
+                </div>
+                <button onclick="closeModal('payment-settings-modal')" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form onsubmit="savePaymentSettings(event)" class="p-5 space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-mview-ink mb-1">Account Label / Name</label>
+                        <input type="text" id="settings-gcash-name" required placeholder="e.g., M-VIEW Courts G-Cash" class="w-full px-3.5 py-2.5 rounded-2xl border border-mview-border bg-white text-sm text-mview-ink focus:outline-none focus:ring-2 focus:ring-mview-moss">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-mview-ink mb-1">G-Cash Number</label>
+                        <input type="text" id="settings-gcash-number" required placeholder="e.g., 0917-888-6843" class="w-full px-3.5 py-2.5 rounded-2xl border border-mview-border bg-white text-sm font-mono text-mview-ink focus:outline-none focus:ring-2 focus:ring-mview-moss">
+                    </div>
+                </div>
+
+                <!-- QR Code Image Uploader -->
+                <div class="bg-white border border-mview-border rounded-2xl p-4 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-mview-ink">Customer Payment QR Code</span>
+                        <button type="button" id="remove-qr-btn" onclick="clearAdminQrPreview()" class="hidden text-[11px] font-bold text-rose-700 hover:underline">
+                            <i class="fa-solid fa-trash-can mr-1"></i>Remove QR
+                        </button>
+                    </div>
+
+                    <div id="admin-qr-preview-box" class="flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-dashed border-mview-border bg-mview-paper text-center min-h-[170px]">
+                        <img id="admin-qr-preview-img" src="" alt="QR Preview" class="hidden w-40 h-40 object-contain rounded-xl bg-white p-1.5 border border-mview-border shadow-2xs">
+                        <div id="admin-qr-empty-state" class="space-y-1.5 text-mview-muted">
+                            <i class="fa-solid fa-qrcode text-3xl text-mview-moss/60"></i>
+                            <p class="text-xs font-semibold text-mview-ink">No QR Code uploaded yet</p>
+                            <p class="text-[11px]">Upload your G-Cash or InstaPay QR screenshot below</p>
+                        </div>
+                    </div>
+
+                    <label class="w-full cursor-pointer py-2.5 px-4 rounded-full bg-mview-sageSoft hover:bg-mview-celadon text-mview-forest font-bold text-xs flex items-center justify-center gap-2 border border-mview-border transition">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Upload / Change QR Image</span>
+                        <input type="file" id="qr-file-input" accept="image/*" onchange="handleQrFileUpload(event)" class="hidden">
+                    </label>
+                </div>
+
+                <div class="flex justify-end gap-2 pt-1">
+                    <button type="button" onclick="closeModal('payment-settings-modal')" class="px-4 py-2 rounded-full border border-mview-border bg-white text-xs font-bold text-mview-ink">Cancel</button>
+                    <button type="submit" id="save-payment-settings-btn" class="px-5 py-2 rounded-full bg-mview-moss hover:bg-mview-forest text-white text-xs font-bold shadow-2xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-check"></i>
+                        <span>Save Payment Settings</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 5C: Fullscreen QR Code Zoom Modal for Customers -->
+    <div id="qr-zoom-modal" onclick="closeModal('qr-zoom-modal')" class="fixed inset-0 z-50 hidden items-center justify-center bg-mview-ink/80 backdrop-blur-sm p-4">
+        <div onclick="event.stopPropagation()" class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border-2 border-mview-moss">
+            <div class="flex items-center justify-between">
+                <span class="font-serifLogo font-bold text-sm text-mview-moss uppercase">Scan to Pay</span>
+                <button type="button" onclick="closeModal('qr-zoom-modal')" class="w-8 h-8 rounded-full bg-mview-sageSoft hover:bg-mview-celadon text-mview-ink flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="bg-mview-paper p-3 rounded-2xl border border-mview-border">
+                <img id="zoomed-gcash-qr-img" src="" alt="Enlarged Payment QR Code" class="w-full max-h-80 object-contain mx-auto rounded-xl">
+            </div>
+            <div>
+                <div id="zoom-gcash-account" class="font-bold text-sm text-mview-ink">M-VIEW Courts G-Cash</div>
+                <div id="zoom-gcash-number" class="font-mono font-extrabold text-base text-mview-moss mt-0.5">0917-888-6843</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 5D: Fullscreen Receipt / Screenshot Viewer Modal -->
+    <div id="receipt-zoom-modal" onclick="closeModal('receipt-zoom-modal')" class="fixed inset-0 z-50 hidden items-center justify-center bg-mview-ink/85 backdrop-blur-sm p-4">
+        <div onclick="event.stopPropagation()" class="bg-white rounded-3xl max-w-md w-full p-5 text-center space-y-3.5 shadow-2xl border-2 border-mview-moss">
+            <div class="flex items-center justify-between">
+                <span class="font-serifLogo font-bold text-sm text-mview-moss uppercase">G-Cash Payment Receipt</span>
+                <button type="button" onclick="closeModal('receipt-zoom-modal')" class="w-8 h-8 rounded-full bg-mview-sageSoft hover:bg-mview-celadon text-mview-ink flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="bg-mview-paper p-2.5 rounded-2xl border border-mview-border">
+                <img id="zoomed-receipt-img" src="" alt="Full G-Cash Payment Receipt" class="w-full max-h-[68vh] object-contain mx-auto rounded-xl">
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 6: Custom Confirmation Dialog -->
+    <div id="confirm-action-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-mview-ink/60 backdrop-blur-xs p-4">
+        <div class="bg-mview-creamWarm rounded-3xl max-w-sm w-full shadow-2xl border-2 border-mview-moss p-5 space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                    <h4 id="confirm-modal-title" class="font-bold text-mview-ink text-base">Confirm Action</h4>
+                    <p id="confirm-modal-message" class="text-xs text-mview-muted mt-0.5">Are you sure?</p>
+                </div>
+            </div>
+            <div class="flex justify-end gap-2">
+                <button onclick="closeModal('confirm-action-modal')" class="px-4 py-2 rounded-full border border-mview-border bg-white text-xs font-bold text-mview-ink">Cancel</button>
+                <button id="confirm-modal-yes-btn" class="px-5 py-2 rounded-full bg-rose-700 hover:bg-rose-800 text-white text-xs font-bold">Proceed</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK & Application Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // ==========================================
+        // 1. INITIALIZATION & GLOBAL STATE
+        // ==========================================
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'mview-courts-pickle-cafe';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+
+        let app, db, auth;
+        let currentUser = null;
+        let allBookings = [];          // Real-time list of all bookings
+        let selectedSlots = [];        // Array of { court: 'Court 1'|'Court 2', hour: 0..23 }
+        let selectedDate = getTodayLocalISO();
+        let isAdminLoggedIn = false;
+        let currentAdminPin = '1234';  // Default PIN
+        let paymentConfig = {
+            accountName: 'M-VIEW Courts G-Cash',
+            gcashNumber: '0917-888-6843',
+            qrImageData: ''
+        };
+        let draftQrImageData = '';
+        let draftCustomerReceiptData = '';
+        let adminStatusFilter = 'ALL';
+        let timeOfDayFilter = 'ALL';
+        let lastReceiptCode = '';
+
+        // ==========================================
+        // 2. OPERATING HOURS & PRICING HELPERS
+        // ==========================================
+        // Operating Hours: 5:00 AM (5) through 2:00 AM (last slot starts at 1:00 AM -> hour 1)
+        const OPERATING_HOURS = [
+            5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+            17, 18, 19, 20, 21, 22, 23, 0, 1
+        ];
+
+        function isNightHour(hour) {
+            return hour >= 17 || hour <= 1;
+        }
+
+        function getHourlyRate(hour) {
+            return isNightHour(hour) ? 230 : 180;
+        }
+
+        function formatShortHour(h) {
+            const normalized = ((h % 24) + 24) % 24;
+            if (normalized === 0) return '12:00 AM';
+            if (normalized === 12) return '12:00 PM';
+            if (normalized > 12) return `${normalized - 12}:00 PM`;
+            return `${normalized}:00 AM`;
+        }
+
+        function formatHourLabel(hour) {
+            return `${formatShortHour(hour)} – ${formatShortHour(hour + 1)}`;
+        }
+
+        function getTodayLocalISO() {
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = String(now.getMonth() + 1).padStart(2, '0');
+            const d = String(now.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        function formatDisplayDate(isoDate) {
+            if (!isoDate) return '';
+            const [y, m, d] = isoDate.split('-').map(Number);
+            const dt = new Date(y, m - 1, d);
+            return dt.toLocaleDateString('en-PH', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function generateBookingCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = 'MV-';
+            for (let i = 0; i < 5; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return code;
+        }
+
+        window.showToast = function(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const styles = {
+                success: 'bg-mview-forest text-white border-mview-celadon',
+                warning: 'bg-amber-900 text-amber-50 border-amber-400',
+                error: 'bg-rose-900 text-white border-rose-400',
+                info: 'bg-mview-ink text-white border-mview-moss'
+            }[type] || 'bg-mview-ink text-white border-mview-moss';
+
+            const toast = document.createElement('div');
+            toast.className = `pointer-events-auto px-4 py-3 rounded-2xl border shadow-lg text-xs sm:text-sm font-semibold flex items-center justify-between gap-3 transition-all duration-300 ${styles}`;
+            toast.innerHTML = `
+                <span>${escapeHtml(message)}</span>
+                <button type="button" onclick="this.parentElement.remove()" class="opacity-75 hover:opacity-100 text-xs">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3800);
+        };
+
+        // ==========================================
+        // 3. FIREBASE AUTH & REAL-TIME LISTENERS
+        // ==========================================
+        async function initFirebase() {
+            if (!firebaseConfig) {
+                // Local standalone mode when Firebase config is absent
+                loadLocalFallbackSettings();
+                seedDemoBookingsIfEmpty();
+                document.getElementById('grid-loading').classList.add('hidden');
+                document.getElementById('court-slots-container').classList.remove('hidden');
+                renderCourtGrid();
+                return;
+            }
+
+            try {
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        currentUser = user;
+                        subscribeToAdminSettings();
+                        subscribeToBookings();
+                    }
+                });
+            } catch (err) {
+                console.error('Firebase initialization error:', err);
+                loadLocalFallbackSettings();
+                document.getElementById('grid-loading').classList.add('hidden');
+                document.getElementById('court-slots-container').classList.remove('hidden');
+                renderCourtGrid();
+            }
+        }
+
+        function loadLocalFallbackSettings() {
+            try {
+                const saved = localStorage.getItem('mview_payment_config');
+                if (saved) {
+                    paymentConfig = { ...paymentConfig, ...JSON.parse(saved) };
+                }
+                const savedPin = localStorage.getItem('mview_admin_pin');
+                if (savedPin) currentAdminPin = savedPin;
+            } catch (_) {}
+            applyPaymentConfigToUI();
+        }
+
+        function seedDemoBookingsIfEmpty() {
+            if (allBookings.length > 0) return;
+            allBookings = [
+                {
+                    id: 'demo-1',
+                    bookingCode: 'MV-8421A',
+                    date: selectedDate,
+                    slots: [{ court: 'Court 1', hour: 7, rate: 180 }, { court: 'Court 1', hour: 8, rate: 180 }],
+                    totalHours: 2,
+                    totalAmount: 360,
+                    playerName: 'M-VIEW Morning Open Play',
+                    contact: 'M-VIEW Counter',
+                    paymentMethod: 'N/A',
+                    paymentRef: 'OPEN-PLAY',
+                    notes: 'All levels welcome • 4 courtside iced coffees',
+                    status: 'CONFIRMED',
+                    bookingType: 'OPEN_PLAY',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 'demo-2',
+                    bookingCode: 'MV-9104B',
+                    date: selectedDate,
+                    slots: [{ court: 'Court 2', hour: 18, rate: 230 }],
+                    totalHours: 1,
+                    totalAmount: 230,
+                    playerName: 'Angela Santos',
+                    contact: '0917-555-0192',
+                    paymentMethod: 'G-Cash',
+                    paymentRef: 'GC-7749201',
+                    notes: '2 demo paddles please',
+                    status: 'PENDING',
+                    bookingType: 'CUSTOMER',
+                    createdAt: new Date().toISOString()
+                }
+            ];
+        }
+
+        function subscribeToAdminSettings() {
+            if (!currentUser || !db) return;
+            const settingsRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'adminConfig');
+            onSnapshot(settingsRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.data();
+                    if (data.pin) currentAdminPin = String(data.pin);
+                    paymentConfig = {
+                        accountName: data.accountName || 'M-VIEW Courts G-Cash',
+                        gcashNumber: data.gcashNumber || '0917-888-6843',
+                        qrImageData: data.qrImageData || ''
+                    };
+                    applyPaymentConfigToUI();
+                } else {
+                    setDoc(settingsRef, {
+                        pin: '1234',
+                        accountName: paymentConfig.accountName,
+                        gcashNumber: paymentConfig.gcashNumber,
+                        qrImageData: '',
+                        updatedAt: new Date().toISOString()
+                    }, { merge: true }).catch(() => {});
+                }
+            }, (error) => {
+                console.error('Admin settings listener error:', error);
+            });
+        }
+
+        function applyPaymentConfigToUI() {
+            const nameEl = document.getElementById('display-gcash-account-name');
+            const numEl = document.getElementById('display-gcash-number');
+            const qrContainer = document.getElementById('customer-qr-container');
+            const qrImg = document.getElementById('customer-gcash-qr-img');
+            const zoomImg = document.getElementById('zoomed-gcash-qr-img');
+            const zoomName = document.getElementById('zoom-gcash-account');
+            const zoomNum = document.getElementById('zoom-gcash-number');
+
+            if (nameEl) nameEl.textContent = paymentConfig.accountName;
+            if (numEl) numEl.textContent = paymentConfig.gcashNumber;
+            if (zoomName) zoomName.textContent = paymentConfig.accountName;
+            if (zoomNum) zoomNum.textContent = paymentConfig.gcashNumber;
+
+            if (paymentConfig.qrImageData) {
+                if (qrImg) qrImg.src = paymentConfig.qrImageData;
+                if (zoomImg) zoomImg.src = paymentConfig.qrImageData;
+                qrContainer?.classList.remove('hidden');
+            } else {
+                qrContainer?.classList.add('hidden');
+            }
+        }
+
+        function subscribeToBookings() {
+            if (!currentUser || !db) return;
+            const bookingsCol = collection(db, 'artifacts', appId, 'public', 'data', 'bookings');
+            
+            onSnapshot(bookingsCol, (snapshot) => {
+                const loaded = [];
+                snapshot.forEach((docSnap) => {
+                    loaded.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                loaded.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+                allBookings = loaded;
+
+                selectedSlots = selectedSlots.filter(sel => {
+                    const conflict = getSlotBookingStatus(selectedDate, sel.court, sel.hour);
+                    return !conflict;
+                });
+
+                document.getElementById('grid-loading').classList.add('hidden');
+                document.getElementById('court-slots-container').classList.remove('hidden');
+
+                renderCourtGrid();
+                updateSelectionCart();
+                if (isAdminLoggedIn) {
+                    renderAdminDashboard();
+                }
+            }, (error) => {
+                console.error('Bookings listener error:', error);
+                showToast('Error syncing court bookings.', 'error');
+            });
+        }
+
+        // ==========================================
+        // 4. COURT GRID RENDERING & SLOT SELECTION
+        // ==========================================
+        function getSlotBookingStatus(dateStr, courtName, hour) {
+            for (const b of allBookings) {
+                if (b.date !== dateStr) continue;
+                if (b.status === 'CANCELLED') continue;
+                if (!Array.isArray(b.slots)) continue;
+
+                const match = b.slots.find(s => s.court === courtName && Number(s.hour) === Number(hour));
+                if (match) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        function isSlotSelected(courtName, hour) {
+            return selectedSlots.some(s => s.court === courtName && s.hour === hour);
+        }
+
+        window.toggleSlotSelection = function(courtName, hour) {
+            const existingBooking = getSlotBookingStatus(selectedDate, courtName, hour);
+            if (existingBooking) {
+                if (existingBooking.status === 'PENDING') {
+                    showToast(`${courtName} (${formatShortHour(hour)}) is currently held pending Admin confirmation.`, 'warning');
+                } else {
+                    showToast(`${courtName} (${formatShortHour(hour)}) is already confirmed & booked.`, 'info');
+                }
+                return;
+            }
+
+            const idx = selectedSlots.findIndex(s => s.court === courtName && s.hour === hour);
+            if (idx > -1) {
+                selectedSlots.splice(idx, 1);
+            } else {
+                selectedSlots.push({
+                    court: courtName,
+                    hour: hour,
+                    rate: getHourlyRate(hour)
+                });
+            }
+
+            selectedSlots.sort((a, b) => a.court.localeCompare(b.court) || a.hour - b.hour);
+
+            renderCourtGrid();
+            updateSelectionCart();
+        };
+
+        window.clearSelectedSlots = function() {
+            selectedSlots = [];
+            renderCourtGrid();
+            updateSelectionCart();
+        };
+
+        function updateSelectionCart() {
+            const bar = document.getElementById('selection-cart-bar');
+            const countEl = document.getElementById('cart-slot-count');
+            const summaryEl = document.getElementById('cart-summary-text');
+            const totalEl = document.getElementById('cart-total-price');
+
+            if (selectedSlots.length === 0) {
+                bar.classList.add('translate-y-[140%]');
+                return;
+            }
+
+            const total = selectedSlots.reduce((sum, s) => sum + s.rate, 0);
+            const c1Count = selectedSlots.filter(s => s.court === 'Court 1').length;
+            const c2Count = selectedSlots.filter(s => s.court === 'Court 2').length;
+
+            const parts = [];
+            if (c1Count > 0) parts.push(`Court 1 (${c1Count}h)`);
+            if (c2Count > 0) parts.push(`Court 2 (${c2Count}h)`);
+
+            countEl.textContent = selectedSlots.length;
+            summaryEl.textContent = `${parts.join(' + ')} • ${formatDisplayDate(selectedDate)}`;
+            totalEl.textContent = `₱${total.toLocaleString()}`;
+            bar.classList.remove('translate-y-[140%]');
+        }
+
+        window.setTimeFilter = function(filter) {
+            timeOfDayFilter = filter;
+            document.querySelectorAll('.time-filter-btn').forEach(btn => {
+                if (btn.dataset.timefilter === filter) {
+                    btn.className = 'time-filter-btn px-3.5 py-2 rounded-full text-xs font-bold bg-mview-forest text-white shrink-0 transition shadow-2xs';
+                } else {
+                    btn.className = 'time-filter-btn px-3.5 py-2 rounded-full text-xs font-semibold bg-mview-paper hover:bg-mview-sageSoft text-mview-ink border border-mview-border shrink-0 transition';
+                }
+            });
+            renderCourtGrid();
+        };
+
+        function matchesTimeFilter(hour) {
+            if (timeOfDayFilter === 'MORNING') return hour >= 5 && hour < 12;
+            if (timeOfDayFilter === 'AFTERNOON') return hour >= 12 && hour < 17;
+            if (timeOfDayFilter === 'NIGHT') return hour >= 17 || hour <= 1;
+            return true;
+        }
+
+        function renderCourtGrid() {
+            const container = document.getElementById('court-slots-container');
+            container.innerHTML = '';
+
+            for (const hour of OPERATING_HOURS) {
+                if (!matchesTimeFilter(hour)) continue;
+
+                const rate = getHourlyRate(hour);
+                const night = isNightHour(hour);
+
+                const row = document.createElement('div');
+                row.className = `grid grid-cols-12 items-stretch w-full ${night ? 'bg-mview-creamWarm' : 'bg-white'}`;
+
+                // Time & Rate Column
+                const timeCol = document.createElement('div');
+                timeCol.className = 'col-span-4 sm:col-span-3 md:col-span-2 p-2.5 sm:p-4 border-r border-mview-border/70 flex flex-col justify-center';
+                timeCol.innerHTML = `
+                    <div class="font-bold text-xs sm:text-sm text-mview-ink leading-tight">${formatHourLabel(hour)}</div>
+                    <div class="mt-1.5 flex items-center gap-1.5 flex-wrap">
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold ${night ? 'bg-mview-sageSoft text-mview-forest' : 'bg-amber-50 text-amber-800 border border-amber-200/70'}">
+                            <i class="fa-solid ${night ? 'fa-lightbulb' : 'fa-sun'} text-[10px]"></i>
+                            ₱${rate.toFixed(2)}/hr
+                        </span>
+                    </div>
+                `;
+                row.appendChild(timeCol);
+
+                // Court 1 and Court 2 Cells
+                ['Court 1', 'Court 2'].forEach((courtName, idx) => {
+                    const cellWrapper = document.createElement('div');
+                    const colSpanClass = idx === 0
+                        ? 'col-span-4 sm:col-span-4 md:col-span-5 border-r border-mview-border/70'
+                        : 'col-span-4 sm:col-span-5 md:col-span-5';
+                    cellWrapper.className = `p-2 sm:p-2.5 ${colSpanClass}`;
+
+                    const booking = getSlotBookingStatus(selectedDate, courtName, hour);
+                    const selected = isSlotSelected(courtName, hour);
+
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.onclick = () => toggleSlotSelection(courtName, hour);
+
+                    if (booking) {
+                        if (booking.status === 'CONFIRMED') {
+                            const isOpenPlay = booking.bookingType === 'OPEN_PLAY';
+                            btn.className = `slot-card w-full h-full min-h-[58px] rounded-2xl px-3 py-2.5 text-left border flex flex-col justify-center cursor-not-allowed ${
+                                isOpenPlay
+                                    ? 'bg-mview-forest border-mview-gold/60 text-white shadow-2xs'
+                                    : 'bg-mview-forest/90 border-mview-forest text-white'
+                            }`;
+                            btn.innerHTML = `
+                                <div class="flex items-center justify-between gap-1">
+                                    <span class="text-[11px] sm:text-xs font-extrabold uppercase tracking-wide flex items-center gap-1.5 ${isOpenPlay ? 'text-mview-gold' : 'text-mview-celadon'}">
+                                        <i class="fa-solid ${isOpenPlay ? 'fa-trophy' : 'fa-lock'}"></i>
+                                        ${isOpenPlay ? 'Open Play' : 'Confirmed'}
+                                    </span>
+                                </div>
+                                <div class="text-[11px] truncate mt-0.5 font-medium text-white/90">
+                                    ${isAdminLoggedIn ? escapeHtml(booking.playerName) : (isOpenPlay ? escapeHtml(booking.playerName) : 'Reserved')}
+                                </div>
+                            `;
+                        } else {
+                            btn.className = 'slot-card w-full h-full min-h-[58px] rounded-2xl px-3 py-2.5 text-left bg-amber-50/95 border border-amber-300 text-amber-950 flex flex-col justify-center cursor-not-allowed';
+                            btn.innerHTML = `
+                                <div class="flex items-center justify-between gap-1">
+                                    <span class="text-[11px] sm:text-xs font-extrabold uppercase tracking-wide flex items-center gap-1.5 text-amber-800 animate-pulse-subtle">
+                                        <i class="fa-solid fa-clock"></i>
+                                        Pending
+                                    </span>
+                                </div>
+                                <div class="text-[11px] truncate mt-0.5 text-amber-900/80 font-semibold">
+                                    ${isAdminLoggedIn ? escapeHtml(booking.playerName) : 'Awaiting Approval'}
+                                </div>
+                            `;
+                        }
+                    } else if (selected) {
+                        btn.className = 'slot-card w-full h-full min-h-[58px] rounded-2xl px-3 py-2.5 text-left bg-mview-moss border-2 border-mview-forest text-white shadow-md flex flex-col justify-center';
+                        btn.innerHTML = `
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs sm:text-sm font-extrabold flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-check text-mview-gold"></i>
+                                    Selected
+                                </span>
+                                <span class="text-xs font-extrabold text-mview-gold">₱${rate}</span>
+                            </div>
+                            <div class="text-[11px] text-white/90 mt-0.5">Tap to remove</div>
+                        `;
+                    } else {
+                        btn.className = 'slot-card w-full h-full min-h-[58px] rounded-2xl px-3 py-2.5 text-left bg-white hover:bg-mview-sageSoft/80 border border-mview-border hover:border-mview-moss text-mview-ink flex flex-col justify-center group shadow-2xs';
+                        btn.innerHTML = `
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs sm:text-sm font-bold text-mview-moss group-hover:text-mview-forest flex items-center gap-1.5">
+                                    Available
+                                </span>
+                                <span class="text-xs font-bold text-mview-muted group-hover:text-mview-ink">₱${rate}</span>
+                            </div>
+                            <div class="text-[11px] text-mview-muted/80 group-hover:text-mview-forest mt-0.5">Tap to pick slot</div>
+                        `;
+                    }
+
+                    cellWrapper.appendChild(btn);
+                    row.appendChild(cellWrapper);
+                });
+
+                container.appendChild(row);
+            }
+        }
+
+        // ==========================================
+        // 5. DATE PICKER CONTROLS
+        // ==========================================
+        const datePickerEl = document.getElementById('booking-date-picker');
+        datePickerEl.value = selectedDate;
+        document.getElementById('admin-selected-date-text').textContent = selectedDate;
+
+        function getOffsetDateISO(offsetDays) {
+            const todayISO = getTodayLocalISO();
+            const [y, m, d] = todayISO.split('-').map(Number);
+            const dt = new Date(y, m - 1, d + offsetDays);
+            return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+        }
+
+        function renderSevenDayStrip() {
+            const stripEl = document.getElementById('seven-day-strip');
+            if (!stripEl) return;
+
+            let html = '';
+            for (let offset = 0; offset < 7; offset++) {
+                const iso = getOffsetDateISO(offset);
+                const [y, m, d] = iso.split('-').map(Number);
+                const dt = new Date(y, m - 1, d);
+                const isSelected = selectedDate === iso;
+
+                let label = '';
+                if (offset === 0) {
+                    label = `Today • ${dt.toLocaleDateString('en-PH', { month: 'short', day: 'numeric' })}`;
+                } else if (offset === 1) {
+                    label = `Tomorrow • ${dt.toLocaleDateString('en-PH', { month: 'short', day: 'numeric' })}`;
+                } else {
+                    label = dt.toLocaleDateString('en-PH', { weekday: 'short', month: 'short', day: 'numeric' });
+                }
+
+                const btnClass = isSelected
+                    ? 'px-3.5 py-2 rounded-full bg-mview-moss text-white font-bold text-xs shadow-2xs shrink-0 transition border border-mview-forest'
+                    : 'px-3.5 py-2 rounded-full bg-mview-sageSoft hover:bg-mview-celadon text-mview-forest font-bold text-xs shrink-0 transition border border-mview-border/60';
+
+                html += `<button type="button" onclick="setQuickDate(${offset})" class="${btnClass}">${label}</button>`;
+            }
+            stripEl.innerHTML = html;
+        }
+
+        datePickerEl.addEventListener('change', (e) => {
+            if (!e.target.value) return;
+            selectedDate = e.target.value;
+            selectedSlots = [];
+            document.getElementById('admin-selected-date-text').textContent = selectedDate;
+            renderSevenDayStrip();
+            updateSelectionCart();
+            renderCourtGrid();
+            if (isAdminLoggedIn) renderAdminDashboard();
+        });
+
+        window.changeDate = function(deltaDays) {
+            const [y, m, d] = selectedDate.split('-').map(Number);
+            const dt = new Date(y, m - 1, d + deltaDays);
+            const newISO = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+            selectedDate = newISO;
+            datePickerEl.value = newISO;
+            selectedSlots = [];
+            document.getElementById('admin-selected-date-text').textContent = selectedDate;
+            renderSevenDayStrip();
+            updateSelectionCart();
+            renderCourtGrid();
+            if (isAdminLoggedIn) renderAdminDashboard();
+        };
+
+        window.setQuickDate = function(offsetDays) {
+            selectedDate = getOffsetDateISO(offsetDays);
+            datePickerEl.value = selectedDate;
+            selectedSlots = [];
+            document.getElementById('admin-selected-date-text').textContent = selectedDate;
+            renderSevenDayStrip();
+            updateSelectionCart();
+            renderCourtGrid();
+            if (isAdminLoggedIn) renderAdminDashboard();
+        };
+
+        renderSevenDayStrip();
+
+        // ==========================================
+        // 6. CUSTOMER BOOKING MODAL & SUBMISSION
+        // ==========================================
+        window.openBookingModal = function() {
+            if (selectedSlots.length === 0) {
+                showToast('Please select at least one available court slot first.', 'warning');
+                return;
+            }
+
+            document.getElementById('modal-booking-date').textContent = formatDisplayDate(selectedDate);
+            const listEl = document.getElementById('modal-slots-list');
+            listEl.innerHTML = selectedSlots.map(s => `
+                <div class="flex items-center justify-between py-0.5">
+                    <span><strong>${s.court}</strong> • ${formatHourLabel(s.hour)}</span>
+                    <span class="font-bold text-mview-moss">₱${s.rate}</span>
+                </div>
+            `).join('');
+
+            const total = selectedSlots.reduce((sum, s) => sum + s.rate, 0);
+            document.getElementById('modal-total-amount').textContent = `₱${total.toLocaleString()}`;
+
+            openModal('booking-modal');
+        };
+
+        window.togglePaymentRefHint = function() {
+            const method = document.querySelector('input[name="paymentMethod"]:checked')?.value;
+            const hint = document.getElementById('ref-hint-badge');
+            const gcashCard = document.getElementById('gcash-details-card');
+            if (method === 'G-Cash') {
+                gcashCard?.classList.remove('hidden');
+            } else {
+                gcashCard?.classList.add('hidden');
+            }
+
+            if (method === 'CASH') {
+                hint.textContent = 'Optional for Cash (Pay at M-VIEW Café counter)';
+                hint.className = 'text-[11px] font-semibold text-mview-forest';
+            } else {
+                hint.textContent = 'Enter G-Cash Reference # for faster approval';
+                hint.className = 'text-[11px] font-semibold text-mview-moss';
+            }
+        };
+
+        window.copyGcashNumber = function() {
+            const cleanNum = (paymentConfig.gcashNumber || '0917-888-6843').replace(/[^0-9]/g, '');
+            const tempInput = document.createElement('input');
+            tempInput.value = cleanNum || paymentConfig.gcashNumber;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(`Copied G-Cash number (${paymentConfig.gcashNumber})!`, 'success');
+        };
+
+        window.openQrZoomModal = function() {
+            if (!paymentConfig.qrImageData) return;
+            openModal('qr-zoom-modal');
+        };
+
+        function updateCustomerReceiptUI() {
+            const box = document.getElementById('customer-receipt-preview-box');
+            const img = document.getElementById('customer-receipt-preview-img');
+            const removeBtn = document.getElementById('remove-customer-receipt-btn');
+            const label = document.getElementById('customer-receipt-btn-label');
+
+            if (draftCustomerReceiptData) {
+                img.src = draftCustomerReceiptData;
+                box?.classList.remove('hidden');
+                removeBtn?.classList.remove('hidden');
+                if (label) label.textContent = 'Change Receipt Photo / Screenshot';
+            } else {
+                img.src = '';
+                box?.classList.add('hidden');
+                removeBtn?.classList.add('hidden');
+                if (label) label.textContent = 'Choose Receipt Photo / Screenshot';
+            }
+        }
+
+        window.clearCustomerReceipt = function() {
+            draftCustomerReceiptData = '';
+            const fileInput = document.getElementById('customer-receipt-file-input');
+            if (fileInput) fileInput.value = '';
+            updateCustomerReceiptUI();
+        };
+
+        window.handleCustomerReceiptUpload = function(e) {
+            const file = e.target.files?.[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const img = new Image();
+                img.onload = function() {
+                    const maxDim = 900;
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > maxDim || height > maxDim) {
+                        if (width > height) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
+                    }
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, width, height);
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    draftCustomerReceiptData = canvas.toDataURL('image/jpeg', 0.82);
+                    updateCustomerReceiptUI();
+                    showToast('Payment receipt photo attached!', 'success');
+                };
+                img.onerror = function() {
+                    showToast('Please select a valid JPG or PNG receipt photo.', 'error');
+                };
+                img.src = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+        };
+
+        window.openReceiptZoomModal = function(dataUrl) {
+            if (!dataUrl) return;
+            const zoomImg = document.getElementById('zoomed-receipt-img');
+            if (zoomImg) zoomImg.src = dataUrl;
+            openModal('receipt-zoom-modal');
+        };
+
+        window.submitCustomerBooking = async function(e) {
+            e.preventDefault();
+            if (selectedSlots.length === 0) return;
+
+            const playerName = document.getElementById('input-player-name').value.trim();
+            const contact = document.getElementById('input-player-contact').value.trim();
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'G-Cash';
+            const paymentRef = document.getElementById('input-payment-ref').value.trim();
+            const notes = document.getElementById('input-booking-notes').value.trim();
+
+            if (!playerName || !contact) {
+                showToast('Please enter your name and contact details.', 'error');
+                return;
+            }
+
+            if (paymentMethod === 'G-Cash' && !draftCustomerReceiptData) {
+                showToast('Please upload a photo or screenshot of your G-Cash payment receipt.', 'warning');
+                return;
+            }
+
+            for (const s of selectedSlots) {
+                if (getSlotBookingStatus(selectedDate, s.court, s.hour)) {
+                    showToast(`Sorry! ${s.court} (${formatShortHour(s.hour)}) was just reserved by another player.`, 'error');
+                    closeModal('booking-modal');
+                    return;
+                }
+            }
+
+            const submitBtn = document.getElementById('submit-booking-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i><span>Reserving...</span>`;
+
+            const bookingCode = generateBookingCode();
+            const totalAmount = selectedSlots.reduce((sum, s) => sum + s.rate, 0);
+
+            const bookingPayload = {
+                bookingCode,
+                date: selectedDate,
+                slots: selectedSlots.map(s => ({ court: s.court, hour: s.hour, rate: s.rate })),
+                totalHours: selectedSlots.length,
+                totalAmount,
+                playerName,
+                contact,
+                paymentMethod,
+                paymentRef: paymentRef || 'N/A',
+                receiptImageData: paymentMethod === 'G-Cash' ? draftCustomerReceiptData : '',
+                notes,
+                status: 'PENDING',
+                bookingType: 'CUSTOMER',
+                createdAt: new Date().toISOString()
+            };
+
+            try {
+                if (db && currentUser) {
+                    const bookingsCol = collection(db, 'artifacts', appId, 'public', 'data', 'bookings');
+                    await addDoc(bookingsCol, bookingPayload);
+                } else {
+                    allBookings.unshift({ id: 'local-' + Date.now(), ...bookingPayload });
+                    renderCourtGrid();
+                    if (isAdminLoggedIn) renderAdminDashboard();
+                }
+
+                lastReceiptCode = bookingCode;
+                document.getElementById('receipt-player-name').textContent = playerName;
+                document.getElementById('receipt-ref-code').textContent = bookingCode;
+                document.getElementById('receipt-date').textContent = formatDisplayDate(selectedDate);
+                document.getElementById('receipt-slots').textContent = selectedSlots.map(s => `${s.court} (${formatShortHour(s.hour)})`).join(', ');
+                document.getElementById('receipt-payment').textContent = paymentRef ? `${paymentMethod} (Ref: ${paymentRef})` : paymentMethod;
+                document.getElementById('receipt-total').textContent = `₱${totalAmount.toLocaleString()}`;
+
+                document.getElementById('customer-booking-form').reset();
+                clearCustomerReceipt();
+                togglePaymentRefHint();
+                selectedSlots = [];
+                updateSelectionCart();
+                closeModal('booking-modal');
+                openModal('receipt-modal');
+                showToast('Booking submitted! Awaiting Admin confirmation.', 'success');
+            } catch (err) {
+                console.error('Error submitting booking:', err);
+                showToast('Failed to submit booking. Please try again.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i class="fa-solid fa-check-circle"></i><span>Submit Reservation</span>`;
+            }
+        };
+
+        window.copyBookingCode = function() {
+            if (!lastReceiptCode) return;
+            const tempInput = document.createElement('input');
+            tempInput.value = lastReceiptCode;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(`Copied reference code ${lastReceiptCode}`, 'success');
+        };
+
+        // ==========================================
+        // 7. ADMIN AUTHENTICATION & DASHBOARD
+        // ==========================================
+        window.handleAdminButtonClick = function() {
+            if (isAdminLoggedIn) {
+                document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                document.getElementById('admin-pin-input').value = '';
+                openModal('admin-login-modal');
+                setTimeout(() => document.getElementById('admin-pin-input').focus(), 100);
+            }
+        };
+
+        window.verifyAdminPin = function(e) {
+            e.preventDefault();
+            const enteredPin = document.getElementById('admin-pin-input').value.trim();
+            if (enteredPin === currentAdminPin) {
+                isAdminLoggedIn = true;
+                closeModal('admin-login-modal');
+
+                const btn = document.getElementById('admin-toggle-btn');
+                btn.className = 'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold bg-mview-celadon text-mview-forest border border-mview-moss transition';
+                document.getElementById('admin-btn-icon').className = 'fa-solid fa-shield-halved text-mview-forest';
+                document.getElementById('admin-btn-text').textContent = 'Admin Active';
+
+                document.getElementById('admin-panel').classList.remove('hidden');
+                renderAdminDashboard();
+                renderCourtGrid();
+                document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth' });
+                showToast('Admin Mode unlocked. You can now manage bookings & QR settings.', 'success');
+            } else {
+                showToast('Incorrect Admin PIN. Try default PIN: 1234', 'error');
+            }
+        };
+
+        window.logoutAdmin = function() {
+            isAdminLoggedIn = false;
+            document.getElementById('admin-panel').classList.add('hidden');
+
+            const btn = document.getElementById('admin-toggle-btn');
+            btn.className = 'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-semibold text-mview-celadon/75 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition';
+            document.getElementById('admin-btn-icon').className = 'fa-solid fa-lock text-mview-celadon/75';
+            document.getElementById('admin-btn-text').textContent = 'Admin Access';
+
+            renderCourtGrid();
+            showToast('Exited Admin Mode.', 'info');
+        };
+
+        window.setAdminFilter = function(status) {
+            adminStatusFilter = status;
+            document.querySelectorAll('.admin-filter-btn').forEach(btn => {
+                if (btn.dataset.filter === status) {
+                    btn.className = 'admin-filter-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-mview-moss text-white';
+                } else {
+                    btn.className = 'admin-filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white text-mview-ink border border-mview-border hover:bg-mview-sageTint';
+                }
+            });
+            renderAdminBookings();
+        };
+
+        function renderAdminDashboard() {
+            if (!isAdminLoggedIn) return;
+
+            let confirmedRev = 0;
+            let confirmedHours = 0;
+            let pendingRev = 0;
+            let pendingCount = 0;
+            let dateConfirmedRev = 0;
+
+            let gcashTotal = 0;
+            let cashTotal = 0;
+
+            for (const b of allBookings) {
+                const amt = Number(b.totalAmount) || 0;
+                const hrs = Number(b.totalHours) || (b.slots ? b.slots.length : 0);
+
+                if (b.status === 'CONFIRMED') {
+                    confirmedRev += amt;
+                    confirmedHours += hrs;
+                    if (b.date === selectedDate) dateConfirmedRev += amt;
+
+                    if (b.paymentMethod === 'G-Cash') gcashTotal += amt;
+                    else if (b.paymentMethod === 'CASH') cashTotal += amt;
+                } else if (b.status === 'PENDING') {
+                    pendingRev += amt;
+                    pendingCount++;
+                }
+            }
+
+            document.getElementById('stat-confirmed-rev').textContent = `₱${confirmedRev.toLocaleString()}`;
+            document.getElementById('stat-confirmed-hours').textContent = `${confirmedHours} confirmed hrs total`;
+            document.getElementById('stat-pending-rev').textContent = `₱${pendingRev.toLocaleString()}`;
+            document.getElementById('stat-pending-count').textContent = `${pendingCount} awaiting approval`;
+            document.getElementById('badge-pending-count').textContent = pendingCount;
+
+            document.getElementById('stat-date-rev').textContent = `₱${dateConfirmedRev.toLocaleString()}`;
+            document.getElementById('stat-date-label').textContent = `Confirmed on ${formatDisplayDate(selectedDate)}`;
+
+            document.getElementById('stat-payment-breakdown').innerHTML = `
+                <div class="flex justify-between"><span>G-Cash / QR:</span><span class="text-mview-moss">₱${gcashTotal.toLocaleString()}</span></div>
+                <div class="flex justify-between"><span>CASH:</span><span class="text-mview-forest">₱${cashTotal.toLocaleString()}</span></div>
+            `;
+
+            renderAdminBookings();
+        }
+
+        window.renderAdminBookings = function() {
+            const listEl = document.getElementById('admin-bookings-list');
+            const onlySelectedDate = document.getElementById('admin-filter-selected-date').checked;
+
+            let filtered = allBookings.filter(b => {
+                if (adminStatusFilter !== 'ALL' && b.status !== adminStatusFilter) return false;
+                if (onlySelectedDate && b.date !== selectedDate) return false;
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                listEl.innerHTML = `
+                    <div class="p-8 text-center text-mview-muted text-sm">
+                        <i class="fa-regular fa-folder-open text-2xl mb-2 text-mview-moss/60"></i>
+                        <p>No bookings match the current filter.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = filtered.map(b => {
+                const statusBadge = {
+                    PENDING: '<span class="px-3 py-0.5 rounded-full text-[11px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300">PENDING</span>',
+                    CONFIRMED: '<span class="px-3 py-0.5 rounded-full text-[11px] font-extrabold bg-mview-moss text-white">CONFIRMED</span>',
+                    CANCELLED: '<span class="px-3 py-0.5 rounded-full text-[11px] font-extrabold bg-rose-100 text-rose-800 border border-rose-300">CANCELLED</span>'
+                }[b.status] || '';
+
+                const slotsText = Array.isArray(b.slots)
+                    ? b.slots.map(s => `${s.court} (${formatShortHour(s.hour)})`).join(', ')
+                    : '';
+
+                const paymentBadgeColor = b.paymentMethod === 'G-Cash'
+                    ? 'bg-mview-sageTint text-mview-moss border-mview-border'
+                    : b.paymentMethod === 'CASH'
+                        ? 'bg-mview-celadon/50 text-mview-forest border-mview-border'
+                        : 'bg-[#FAF9F5] text-mview-ink border-mview-border';
+
+                return `
+                    <div class="p-4 sm:p-5 hover:bg-white transition flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                        <div class="space-y-1.5">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="font-mono text-xs font-extrabold px-3 py-0.5 rounded-full bg-mview-forest text-white">${escapeHtml(b.bookingCode || 'MV-REF')}</span>
+                                ${statusBadge}
+                                <span class="text-xs font-bold text-mview-ink">${formatDisplayDate(b.date)}</span>
+                                <span class="px-2.5 py-0.5 rounded-full border text-[11px] font-bold ${paymentBadgeColor}">
+                                    ${escapeHtml(b.paymentMethod || 'CASH')} ${b.paymentRef && b.paymentRef !== 'N/A' ? `• Ref: ${escapeHtml(b.paymentRef)}` : ''}
+                                </span>
+                            </div>
+
+                            <div class="text-sm font-bold text-mview-ink">
+                                ${escapeHtml(b.playerName)}
+                                <span class="text-xs font-normal text-mview-muted ml-1.5"><i class="fa-solid fa-phone text-[10px] mr-1"></i>${escapeHtml(b.contact || 'Walk-in')}</span>
+                            </div>
+
+                            <div class="text-xs text-mview-ink font-medium">
+                                <i class="fa-solid fa-table-tennis-paddle-ball text-mview-moss mr-1"></i>
+                                <strong>${slotsText}</strong> — <span class="font-extrabold text-mview-moss">₱${Number(b.totalAmount || 0).toLocaleString()}</span>
+                            </div>
+
+                            ${b.receiptImageData ? `
+                                <div class="pt-1">
+                                    <button type="button" onclick="openReceiptZoomModal(unescape('${escape(b.receiptImageData)}'))" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-900 border border-sky-200 text-xs font-bold transition">
+                                        <img src="${b.receiptImageData}" alt="Receipt" class="w-6 h-6 rounded object-cover border border-sky-300">
+                                        <span>View G-Cash Receipt</span>
+                                        <i class="fa-solid fa-up-right-from-square text-[10px]"></i>
+                                    </button>
+                                </div>
+                            ` : ''}
+
+                            ${b.notes ? `<div class="text-xs text-mview-muted italic bg-mview-sageSoft px-3 py-1 rounded-full inline-block"><i class="fa-solid fa-mug-hot text-mview-latte mr-1"></i>"${escapeHtml(b.notes)}"</div>` : ''}
+                        </div>
+
+                        <!-- Admin Action Buttons -->
+                        <div class="flex flex-wrap items-center gap-2 shrink-0">
+                            ${b.status !== 'CONFIRMED' ? `
+                                <button onclick="updateBookingStatus('${b.id}', 'CONFIRMED')" class="px-4 py-2 rounded-full bg-mview-moss hover:bg-mview-forest text-white text-xs font-bold flex items-center gap-1.5 shadow-2xs transition">
+                                    <i class="fa-solid fa-check"></i>
+                                    <span>Confirm Booking</span>
+                                </button>
+                            ` : ''}
+                            ${b.status !== 'CANCELLED' ? `
+                                <button onclick="updateBookingStatus('${b.id}', 'CANCELLED')" class="px-3.5 py-2 rounded-full bg-mview-celadon/80 hover:bg-mview-celadon text-mview-forest text-xs font-bold flex items-center gap-1.5 transition">
+                                    <i class="fa-solid fa-ban"></i>
+                                    <span>Decline / Release</span>
+                                </button>
+                            ` : ''}
+                            <button onclick="confirmDeleteBooking('${b.id}', '${escapeHtml(b.bookingCode || '')}')" class="w-8 h-8 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-bold flex items-center justify-center transition" title="Delete record">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        };
+
+        window.updateBookingStatus = async function(bookingId, newStatus) {
+            if (!isAdminLoggedIn) return;
+            try {
+                if (db && currentUser) {
+                    const bookingRef = doc(db, 'artifacts', appId, 'public', 'data', 'bookings', bookingId);
+                    await updateDoc(bookingRef, {
+                        status: newStatus,
+                        updatedAt: new Date().toISOString()
+                    });
+                } else {
+                    const item = allBookings.find(b => b.id === bookingId);
+                    if (item) item.status = newStatus;
+                    renderAdminDashboard();
+                    renderCourtGrid();
+                }
+
+                const msg = newStatus === 'CONFIRMED'
+                    ? 'Booking CONFIRMED! Court slot is now locked.'
+                    : 'Booking cancelled and court slot released.';
+                showToast(msg, newStatus === 'CONFIRMED' ? 'success' : 'warning');
+            } catch (err) {
+                console.error('Failed to update booking status:', err);
+                showToast('Error updating booking status.', 'error');
+            }
+        };
+
+        window.confirmDeleteBooking = function(bookingId, code) {
+            if (!isAdminLoggedIn) return;
+            document.getElementById('confirm-modal-title').textContent = `Delete Booking ${code}?`;
+            document.getElementById('confirm-modal-message').textContent = 'This permanently removes the reservation record and frees the court slot.';
+            const yesBtn = document.getElementById('confirm-modal-yes-btn');
+            yesBtn.onclick = async () => {
+                closeModal('confirm-action-modal');
+                try {
+                    if (db && currentUser) {
+                        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'bookings', bookingId));
+                    } else {
+                        allBookings = allBookings.filter(b => b.id !== bookingId);
+                        renderAdminDashboard();
+                        renderCourtGrid();
+                    }
+                    showToast(`Deleted booking ${code}.`, 'info');
+                } catch (err) {
+                    console.error('Delete error:', err);
+                    showToast('Could not delete booking.', 'error');
+                }
+            };
+            openModal('confirm-action-modal');
+        };
+
+        // ==========================================
+        // 8. ADMIN WALK-IN, PIN & QR SETTINGS
+        // ==========================================
+        window.openAdminWalkInModal = function() {
+            if (!isAdminLoggedIn) return;
+            document.getElementById('walkin-date').value = selectedDate;
+
+            const startSelect = document.getElementById('walkin-start-hour');
+            startSelect.innerHTML = '';
+            for (const h of OPERATING_HOURS) {
+                const opt = document.createElement('option');
+                opt.value = h;
+                opt.textContent = `${formatHourLabel(h)} (₱${getHourlyRate(h).toFixed(2)})`;
+                if (h === 17) opt.selected = true;
+                startSelect.appendChild(opt);
+            }
+
+            openModal('admin-walkin-modal');
+        };
+
+        window.handleWalkinTypeChange = function() {
+            const type = document.getElementById('walkin-type').value;
+            const nameInput = document.getElementById('walkin-name');
+            const payGroup = document.getElementById('walkin-payment-group');
+
+            if (type === 'OPEN_PLAY') {
+                nameInput.value = 'M-VIEW Open Play Session';
+                payGroup.classList.add('hidden');
+            } else {
+                nameInput.value = '';
+                payGroup.classList.remove('hidden');
+            }
+        };
+
+        window.submitAdminWalkIn = async function(e) {
+            e.preventDefault();
+            if (!isAdminLoggedIn) return;
+
+            const bookingType = document.getElementById('walkin-type').value;
+            const date = document.getElementById('walkin-date').value;
+            const court = document.getElementById('walkin-court').value;
+            const startHour = Number(document.getElementById('walkin-start-hour').value);
+            const duration = Number(document.getElementById('walkin-duration').value);
+            const playerName = document.getElementById('walkin-name').value.trim();
+            const paymentMethod = bookingType === 'OPEN_PLAY' ? 'N/A' : document.getElementById('walkin-payment').value;
+            const paymentRef = bookingType === 'OPEN_PLAY' ? 'OPEN-PLAY' : (document.getElementById('walkin-ref').value.trim() || 'WALK-IN');
+
+            const startIndex = OPERATING_HOURS.indexOf(startHour);
+            if (startIndex === -1 || startIndex + duration > OPERATING_HOURS.length) {
+                showToast('Selected duration goes past the 2:00 AM closing time.', 'warning');
+                return;
+            }
+
+            const slots = [];
+            for (let i = 0; i < duration; i++) {
+                const h = OPERATING_HOURS[startIndex + i];
+                if (getSlotBookingStatus(date, court, h)) {
+                    showToast(`Conflict: ${court} at ${formatShortHour(h)} already has a booking.`, 'error');
+                    return;
+                }
+                slots.push({
+                    court,
+                    hour: h,
+                    rate: bookingType === 'OPEN_PLAY' ? 0 : getHourlyRate(h)
+                });
+            }
+
+            const totalAmount = slots.reduce((sum, s) => sum + s.rate, 0);
+            const payload = {
+                bookingCode: generateBookingCode(),
+                date,
+                slots,
+                totalHours: slots.length,
+                totalAmount,
+                playerName,
+                contact: bookingType === 'OPEN_PLAY' ? 'M-VIEW Event' : 'Walk-In Counter',
+                paymentMethod,
+                paymentRef,
+                notes: bookingType === 'OPEN_PLAY' ? 'Official M-VIEW Open Play' : 'Confirmed by Admin at Counter',
+                status: 'CONFIRMED',
+                bookingType,
+                createdAt: new Date().toISOString()
+            };
+
+            try {
+                if (db && currentUser) {
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'bookings'), payload);
+                } else {
+                    allBookings.unshift({ id: 'local-' + Date.now(), ...payload });
+                    renderAdminDashboard();
+                    renderCourtGrid();
+                }
+                closeModal('admin-walkin-modal');
+                showToast(`${bookingType === 'OPEN_PLAY' ? 'Open Play block' : 'Walk-in booking'} confirmed!`, 'success');
+            } catch (err) {
+                console.error('Walk-in error:', err);
+                showToast('Failed to save walk-in booking.', 'error');
+            }
+        };
+
+        window.openPinSettingsModal = function() {
+            if (!isAdminLoggedIn) return;
+            document.getElementById('new-admin-pin-input').value = '';
+            openModal('pin-settings-modal');
+        };
+
+        window.saveNewAdminPin = async function(e) {
+            e.preventDefault();
+            if (!isAdminLoggedIn) return;
+            const newPin = document.getElementById('new-admin-pin-input').value.trim();
+            if (newPin.length < 4) {
+                showToast('PIN must be at least 4 characters.', 'warning');
+                return;
+            }
+
+            try {
+                if (db && currentUser) {
+                    const settingsRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'adminConfig');
+                    await setDoc(settingsRef, { pin: newPin, updatedAt: new Date().toISOString() }, { merge: true });
+                } else {
+                    try { localStorage.setItem('mview_admin_pin', newPin); } catch (_) {}
+                }
+                currentAdminPin = newPin;
+                closeModal('pin-settings-modal');
+                showToast('Admin PIN updated successfully!', 'success');
+            } catch (err) {
+                console.error('PIN update error:', err);
+                showToast('Could not update PIN.', 'error');
+            }
+        };
+
+        // Admin Payment & QR Code Settings Handlers
+        window.openPaymentSettingsModal = function() {
+            if (!isAdminLoggedIn) return;
+            document.getElementById('settings-gcash-name').value = paymentConfig.accountName || 'M-VIEW Courts G-Cash';
+            document.getElementById('settings-gcash-number').value = paymentConfig.gcashNumber || '0917-888-6843';
+            document.getElementById('qr-file-input').value = '';
+            draftQrImageData = paymentConfig.qrImageData || '';
+            updateAdminQrPreviewUI();
+            openModal('payment-settings-modal');
+        };
+
+        function updateAdminQrPreviewUI() {
+            const imgEl = document.getElementById('admin-qr-preview-img');
+            const emptyEl = document.getElementById('admin-qr-empty-state');
+            const removeBtn = document.getElementById('remove-qr-btn');
+
+            if (draftQrImageData) {
+                imgEl.src = draftQrImageData;
+                imgEl.classList.remove('hidden');
+                emptyEl.classList.add('hidden');
+                removeBtn.classList.remove('hidden');
+            } else {
+                imgEl.src = '';
+                imgEl.classList.add('hidden');
+                emptyEl.classList.remove('hidden');
+                removeBtn.classList.add('hidden');
+            }
+        }
+
+        window.clearAdminQrPreview = function() {
+            draftQrImageData = '';
+            document.getElementById('qr-file-input').value = '';
+            updateAdminQrPreviewUI();
+        };
+
+        window.handleQrFileUpload = function(e) {
+            const file = e.target.files?.[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const img = new Image();
+                img.onload = function() {
+                    // Compress & resize QR image to fit cleanly under Firestore 1MB doc limit while staying sharp for scanning
+                    const maxDim = 560;
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > maxDim || height > maxDim) {
+                        if (width > height) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
+                    }
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, width, height);
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    draftQrImageData = canvas.toDataURL('image/jpeg', 0.85);
+                    updateAdminQrPreviewUI();
+                    showToast('QR image ready. Tap "Save Payment Settings" to publish.', 'info');
+                };
+                img.onerror = function() {
+                    showToast('Unsupported image format. Please use JPG or PNG.', 'error');
+                };
+                img.src = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+        };
+
+        window.savePaymentSettings = async function(e) {
+            e.preventDefault();
+            if (!isAdminLoggedIn) return;
+
+            const accountName = document.getElementById('settings-gcash-name').value.trim() || 'M-VIEW Courts G-Cash';
+            const gcashNumber = document.getElementById('settings-gcash-number').value.trim() || '0917-888-6843';
+            const saveBtn = document.getElementById('save-payment-settings-btn');
+
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i><span>Saving...</span>`;
+
+            try {
+                if (db && currentUser) {
+                    const settingsRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'adminConfig');
+                    await setDoc(settingsRef, {
+                        accountName,
+                        gcashNumber,
+                        qrImageData: draftQrImageData,
+                        updatedAt: new Date().toISOString()
+                    }, { merge: true });
+                } else {
+                    try {
+                        localStorage.setItem('mview_payment_config', JSON.stringify({
+                            accountName,
+                            gcashNumber,
+                            qrImageData: draftQrImageData
+                        }));
+                    } catch (_) {}
+                }
+
+                paymentConfig = {
+                    accountName,
+                    gcashNumber,
+                    qrImageData: draftQrImageData
+                };
+                applyPaymentConfigToUI();
+                closeModal('payment-settings-modal');
+                showToast('Payment & QR Code settings updated!', 'success');
+            } catch (err) {
+                console.error('Error saving payment settings:', err);
+                showToast('Could not save QR settings. Try a smaller image.', 'error');
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = `<i class="fa-solid fa-check"></i><span>Save Payment Settings</span>`;
+            }
+        };
+
+        // ==========================================
+        // 9. MODAL & SECURITY UTILITIES
+        // ==========================================
+        window.openModal = function(id) {
+            const el = document.getElementById(id);
+            el.classList.remove('hidden');
+            el.classList.add('flex');
+        };
+
+        window.closeModal = function(id) {
+            const el = document.getElementById(id);
+            el.classList.add('hidden');
+            el.classList.remove('flex');
+        };
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        const stickyHeaderEl = document.getElementById('main-sticky-header');
+        window.addEventListener('scroll', () => {
+            if (!stickyHeaderEl) return;
+            if (window.scrollY > 16) {
+                stickyHeaderEl.classList.add('is-scrolled');
+            } else {
+                stickyHeaderEl.classList.remove('is-scrolled');
+            }
+        }, { passive: true });
+
+        // Start App
+        initFirebase();
+    </script>
+</body>
+</html>
